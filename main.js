@@ -1,10 +1,15 @@
+// Score 
 let computadoraScore = 0;
 let jugadorScore = 0;
 
-// Eleccion PC
+// Buttons
+const btnPiedra = document.getElementById('btn-piedra');
+const btnPapel = document.getElementById('btn-papel');
+const btnTijera = document.getElementById('btn-tijera');
+
+// Elección PC
 function getComputerChoice() {
     let eleccionPC = Math.floor(Math.random() * 3);
-
     if (eleccionPC == 0) {
         return 'piedra';
     } else if (eleccionPC == 1) {
@@ -12,65 +17,86 @@ function getComputerChoice() {
     } else if (eleccionPC == 2) {
         return 'tijera';
     }
-}
+};
 
-// Eleccion Jugador
-function getHumanChoice() {
-    let eleccionPlayer = prompt('Elige piedra, papel o tijera para jugar!');
-    if (eleccionPlayer == 'piedra') {
-        return 'piedra';
-    } else if (eleccionPlayer == 'papel') {
-        return 'papel';
-    } else if (eleccionPlayer == 'tijera') {
-        return 'tijera';
-    } else {
-        return 'Invalid';
-    }
-}
-
-// Rondas y elecciones
-function jugarRonda(opcionJugador, opcionComputadora) {
+// Elecciones
+function jugarRonda(opcionJugador, opcionComputadora, isLastRound) {
     alert('Elegiste ' + opcionJugador);
     alert('El PC eligió ' + opcionComputadora);
 
     if (opcionJugador === opcionComputadora) {
-        alert("¡Se dió un empate! Elige mejor en la próxima ronda.");
+        if (!isLastRound) {
+            alert("¡Se dio un empate! Elige mejor en la próxima ronda.");
+        }
     } else if (
         (opcionJugador === "piedra" && opcionComputadora === "tijera") ||
         (opcionJugador === "papel" && opcionComputadora === "piedra") ||
         (opcionJugador === "tijera" && opcionComputadora === "papel")
     ) {
         jugadorScore++;
-        alert("Has ganado esta ronda. ¡Sigue así!");
+        if (!isLastRound) {
+            alert("Has ganado esta ronda. ¡Sigue así!");
+        }
     } else {
         computadoraScore++;
-        alert("Has perdido esta ronda. ¡Vamos, no te rindas!");
+        if (!isLastRound) {
+            alert("Has perdido esta ronda. ¡Vamos, no te rindas!");
+        }
     }
-}
+};
 
 // Juego
-function jugarJuego() {
-    let ronda = 1;
+let ronda = 1;
+const totalRondas = 5;
 
-    for (i = 0; i < 5; i++) {
-        alert("Ronda " + ronda);
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
-        jugarRonda(humanSelection, computerSelection);
-        alert(
-            "PUNTAJE \nTú: " + jugadorScore + " Computer: " + computadoraScore
-        );
-        ronda++;
+function jugarJuego(opcionJugador) {
+    alert("Ronda " + ronda);
+    const computerSelection = getComputerChoice();
+    jugarRonda(opcionJugador, computerSelection, ronda === totalRondas);
+    if (ronda < totalRondas) {
+        alert("PUNTAJE \nTú: " + jugadorScore + " Computer: " + computadoraScore);
     }
-    // Mensaje Final
-    if (jugadorScore > computadoraScore) {
-        alert('GANASTE 🥳');
-    } else if (jugadorScore == computadoraScore) {
-        alert('EMPATE');
-    } else {
-        alert('PERDISTE 🙁');
+    ronda++;
+
+    // Mensaje y resultado final
+    if (ronda > totalRondas) {
+        if (jugadorScore > computadoraScore) {
+            alert('Has ganado, bien hecho!🥳');
+        } else if (jugadorScore == computadoraScore) {
+            alert('Uff se dio un empate, la próxima será...');
+        } else {
+            alert('Lamentablemente perdiste 🙁');
+        }
+        
+        // Resultado Final
+        alert("Resultado Final \n" + "Tú: " + jugadorScore + " Computer: " + computadoraScore);
+
+        jugadorScore = 0;
+        computadoraScore = 0;
+        ronda = 1;
+
+        iniciarJuego();
     }
 }
 
-// Iniciar game
-jugarJuego();
+// Inicializar juego
+function iniciarJuego() {
+    alert("¡Bienvenido al juego! Elige piedra, papel o tijera para comenzar :)");
+}
+
+// Botones de elección
+btnPiedra.addEventListener('click', () => jugarJuego('piedra'));
+btnPapel.addEventListener('click', () => jugarJuego('papel'));
+btnTijera.addEventListener('click', () => jugarJuego('tijera'));
+
+// Botón de reinicio
+document.getElementById('reiniciar').addEventListener('click', () => {
+    jugadorScore = 0;
+    computadoraScore = 0;
+    ronda = 1;
+    alert("Juego reiniciado. ¡Empieza de nuevo!");
+    iniciarJuego();
+});
+
+// Iniciar el juego por primera vez
+//iniciarJuego();
