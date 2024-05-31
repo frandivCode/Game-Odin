@@ -45,7 +45,6 @@ function jugarRonda(opcionJugador, opcionComputadora, isLastRound) {
     }
 };
 
-// Juego
 let ronda = 1;
 const totalRondas = 5;
 
@@ -58,7 +57,7 @@ function jugarJuego(opcionJugador) {
     }
     ronda++;
 
-    // Mensaje y resultado final
+    // Mensaje Final
     if (ronda > totalRondas) {
         if (jugadorScore > computadoraScore) {
             alert('Has ganado, bien hecho!🥳');
@@ -97,6 +96,4 @@ document.getElementById('reiniciar').addEventListener('click', () => {
     alert("Juego reiniciado. ¡Empieza de nuevo!");
     iniciarJuego();
 });
-
-// Iniciar el juego por primera vez
-//iniciarJuego();
+iniciarJuego();
