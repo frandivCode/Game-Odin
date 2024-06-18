@@ -3,19 +3,25 @@ let computadoraScore = 0;
 let jugadorScore = 0;
 
 // Buttons
-const btnPiedra = document.getElementById('btn-piedra');
-const btnPapel = document.getElementById('btn-papel');
-const btnTijera = document.getElementById('btn-tijera');
+const btnRoca = document.getElementById('btn-roca');
+const btnViento = document.getElementById('btn-viento');
+const btnFuego = document.getElementById('btn-fuego');
+const btnTerremoto = document.getElementById('btn-terremoto');
+const btnAgua = document.getElementById('btn-agua');
 
 // Elección PC
 function getComputerChoice() {
-    let eleccionPC = Math.floor(Math.random() * 3);
-    if (eleccionPC == 0) {
-        return 'piedra';
-    } else if (eleccionPC == 1) {
-        return 'papel';
-    } else if (eleccionPC == 2) {
-        return 'tijera';
+    let eleccionPC = Math.round(Math.random() * 5);
+    if (eleccionPC === 0) {
+        return 'Lluvia de rocas';
+    } else if (eleccionPC === 1) {
+        return 'Corte de viento';
+    } else if (eleccionPC === 2) {
+        return 'Bola de fuego';
+    } else if (eleccionPC === 3) {
+        return 'Terremoto';
+    } else if (eleccionPC === 4) {
+        return 'Chorro de agua';
     }
 };
 
@@ -29,9 +35,11 @@ function jugarRonda(opcionJugador, opcionComputadora, isLastRound) {
             alert("¡Se dio un empate! Elige mejor en la próxima ronda.");
         }
     } else if (
-        (opcionJugador === "piedra" && opcionComputadora === "tijera") ||
-        (opcionJugador === "papel" && opcionComputadora === "piedra") ||
-        (opcionJugador === "tijera" && opcionComputadora === "papel")
+        (opcionJugador === "Lluvia de rocas" && opcionComputadora === "Corte de viento") ||
+        (opcionJugador === "Corte de viento" && opcionComputadora === "Chorro de agua") ||
+        (opcionJugador === "Chorro de agua" && opcionComputadora === "Bola de fuego") ||
+        (opcionJugador === "Bola de fuego" && opcionComputadora === "Terremoto") ||
+        (opcionJugador === "Terremoto" && opcionComputadora === "Lluvia de rocas")
     ) {
         jugadorScore++;
         if (!isLastRound) {
@@ -49,7 +57,7 @@ let ronda = 1;
 const totalRondas = 5;
 
 function jugarJuego(opcionJugador) {
-    alert("Ronda " + ronda);
+    alert("Comenzó la ronda " + ronda);
     const computerSelection = getComputerChoice();
     jugarRonda(opcionJugador, computerSelection, ronda === totalRondas);
     if (ronda < totalRondas) {
@@ -66,7 +74,7 @@ function jugarJuego(opcionJugador) {
         } else {
             alert('Lamentablemente perdiste 🙁');
         }
-        
+
         // Resultado Final
         alert("Resultado Final \n" + "Tú: " + jugadorScore + " Computer: " + computadoraScore);
 
@@ -80,13 +88,15 @@ function jugarJuego(opcionJugador) {
 
 // Inicializar juego
 function iniciarJuego() {
-    alert("¡Bienvenido al juego! Elige piedra, papel o tijera para comenzar :)");
+    alert("¡Bienvenido al juego! \nElige sabiamente los elementos para asi ganarle a tu oponente!");
 }
 
 // Botones de elección
-btnPiedra.addEventListener('click', () => jugarJuego('piedra'));
-btnPapel.addEventListener('click', () => jugarJuego('papel'));
-btnTijera.addEventListener('click', () => jugarJuego('tijera'));
+btnRoca.addEventListener('click', () => jugarJuego('Lluvia de rocas'));
+btnViento.addEventListener('click', () => jugarJuego('Corte de viento'));
+btnFuego.addEventListener('click', () => jugarJuego('Bola de fuego'));
+btnAgua.addEventListener('click', () => jugarJuego('Chorro de agua'));
+btnTerremoto.addEventListener('click', () => jugarJuego('Terremoto'));
 
 // Botón de reinicio
 document.getElementById('reiniciar').addEventListener('click', () => {
@@ -96,4 +106,4 @@ document.getElementById('reiniciar').addEventListener('click', () => {
     alert("Juego reiniciado. ¡Empieza de nuevo!");
     iniciarJuego();
 });
-iniciarJuego();
+// iniciarJuego();
