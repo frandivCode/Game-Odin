@@ -10,8 +10,10 @@
 }
 
 body {
-    height: 100vh;
-    background-color: #373A40;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.7)), url('fondo-game.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .contenedorPrincipal {
@@ -23,11 +25,17 @@ body {
 }
 
 .tituloPrincipal {
-    color: #DC5F00;
+    color: #ffffff;
     font-size: 45px;
     font-family: "Press Start 2P", system-ui;
     margin-block-end: 4rem;
     text-align: center;
+    filter:
+        drop-shadow(1px 1px 3px black) drop-shadow(3px 3px 2px #219644) drop-shadow(6px 6px 3px #219644);
+}
+
+.tituloPrincipal::selection {
+    background-color: #219644;
 }
 
 .contenedorBotones {
@@ -36,12 +44,28 @@ body {
     align-items: center;
 }
 
+.attacksMagnooki {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.attacksVortapt {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.attacksGleamur {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .btn-choice {
-    width: 160px;
+    width: 190px;
     height: 50px;
-    background-color: #686D76;
+    line-height: 1.6;
+    background-color: #1f1e1e;
     color: #EEEEEE;
-    font-size: 10px;
+    font-size: 13px;
     text-transform: uppercase;
     transition: all 0.3s ease;
     cursor: pointer;
@@ -50,19 +74,20 @@ body {
     font-family: "Press Start 2P", system-ui;
     margin: 10px 20px;
     text-align: center;
+    letter-spacing: .6px;
 }
 
 .btn-choice:hover {
-    background-color: #DC5F00;
+    background-color: #219644;
     transition: all ease .5s;
     color: #EEEEEE;
 }
 
 .btn-restart {
     width: 160px;
-    height: 50px;
-    background-color: #686D76;
-    margin: 20px;
+    height: 40px;
+    background-color: #1f1e1e;
+    margin: 30px;
     color: #EEEEEE;
     position: relative;
     overflow: hidden;
@@ -85,7 +110,7 @@ body {
     position: absolute;
     width: 0;
     height: 2px;
-    background-color: #DC5F00;
+    background-color: #219644;
     transition: all 0.3s cubic-bezier(0.35, 0.1, 0.25, 1);
 }
 
@@ -117,7 +142,7 @@ body {
     position: absolute;
     width: 2px;
     height: 0;
-    background-color: #DC5F00;
+    background-color: #219644;
     transition: all 0.3s cubic-bezier(0.35, 0.1, 0.25, 1);
 }
 
@@ -187,7 +212,7 @@ body {
 }
 
 .buttons button.start {
-    background-color: #DC5F00;
+    background-color: #219644;
     box-shadow: 0px 5px 10px -10px rgba(0, 0, 0, 0.2);
     transition: all 0.2s ease;
 }
@@ -235,7 +260,7 @@ body {
 
 @media (max-width:425px) {
     .tituloPrincipal {
-        font-size: 22px;
+        font-size: 20px;
         line-height: 1.7;
         margin: 2rem 0;
     }
@@ -245,10 +270,10 @@ body {
     }
 
     .btn-choice {
-        width: 80px;
-        height: 40px;
+        width: 90px;
+        height: 35px;
         font-size: 7px;
-        line-height: 1.8;
+        line-height: 1.2;
         margin: 5px;
     }
 

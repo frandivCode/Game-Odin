@@ -5,19 +5,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="elements.jpeg">
     <title>Elemental Dominance</title>
 </head>
 
 <body>
     <section class="contenedorPrincipal">
         <h1 class="tituloPrincipal">Elemental Dominance</h1>
-        <div class="contenedorBotones">
-            <button class="btn-choice" id="btn-roca">Lluvia de roca</button>
-            <button class="btn-choice" id="btn-viento">Corte de viento</button>
-            <button class="btn-choice" id="btn-agua">Chorro de agua</button>
-            <button class="btn-choice" id="btn-fuego">Bola de fuego</button>
-            <button class="btn-choice" id="btn-terremoto">Terremoto</button>
+
+        <div class="contenedorPersonajes">
+            <button class="btn-personaje btn-choice" data-personaje="Magnooki">Magnooki</button>
+            <button class="btn-personaje btn-choice" data-personaje="Vortapt">Vortapt</button>
+            <button class="btn-personaje btn-choice" data-personaje="Gleamur">Gleamur</button>
         </div>
+
+        <div class="contenedorBotones" style="display: none;">
+            <div class="attacksMagnooki">
+                <button class="btn-choice" id="bola-de-fuego">Bola de fuego</button>
+                <button class="btn-choice" id="remolino-de-agua">Remolino de agua</button>
+                <button class="btn-choice" id="enrredaderas-venenosas">Enrredaderas venenosas</button>
+                <button class="btn-choice" id="sobrecarga-electrica">Sobrecarga electrica</button>
+            </div>
+
+            <div class="attacksVortapt">
+                <button class="btn-choice" id="llamarada">Llamarada</button>
+                <button class="btn-choice" id="chorro-de-agua">Chorro de agua</button>
+                <button class="btn-choice" id="lluvia-de-espinas">Lluvia de espinas</button>
+                <button class="btn-choice" id="electro-garra">Electro garra</button>
+            </div>
+
+            <div class="attacksGleamur">
+                <button class="btn-choice" id="soplido-infernal">Soplido infernal</button>
+                <button class="btn-choice" id="marea-poderosa">Marea poderosa</button>
+                <button class="btn-choice" id="hojas-cortantes">Hojas cortantes</button>
+                <button class="btn-choice" id="tormenta-electrica">Tormenta electrica</button>
+            </div>
+        </div>
+
         <div class="buttons">
             <button class="btn-restart" id="reiniciar"><span></span>
                 <p data-text="Reiniciar" data-title="Nuevo Juego"></p>
