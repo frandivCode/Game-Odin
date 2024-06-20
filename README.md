@@ -2,7 +2,7 @@
 
 ------------
 
-##### ¿Qué es Elemental Dominance?
+### ¿Qué es Elemental Dominance?
 Elemental Dominance es un videojuego de estrategia y combate inspirado en el estilo de juego de Pokémon. Acá los jugadores combaten con una variedad de monstruos elementales. Cada monstruo posee habilidades únicas derivadas de elementos.
 - Fuego 🔥
 - Agua 🌊
@@ -14,7 +14,7 @@ Elemental Dominance es un videojuego de estrategia y combate inspirado en el est
 
 **Jugabilidad:**
 
-En** Elemental Dominance**, la mecánica del juego es sencilla pero estratégica, permitiendo a los jugadores disfrutar de emocionantes batallas elementales. 
+En **Elemental Dominance**, la mecánica del juego es sencilla pero estratégica, permitiendo a los jugadores disfrutar de emocionantes batallas elementales. 
 
 ------------
 
@@ -62,4 +62,4 @@ En** Elemental Dominance**, la mecánica del juego es sencilla pero estratégica
 - La intensidad de las batallas aumenta con cada ronda, haciendo que cada decisión sea crucial para la victoria.
 
 ------------
-##### Eso ha sido todo, espero les guste mi proyecto. Saludos 👋!
+### Eso ha sido todo, espero les guste mi proyecto. ¡Saludos!👋
