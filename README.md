@@ -25,15 +25,6 @@ En** Elemental Dominance**, la mecánica del juego es sencilla pero estratégica
 - Las habilidades tienen ventajas y desventajas contra otros tipos de monstruos, creando una dinámica de estrategia donde el conocimiento de las fortalezas y debilidades elementales es crucial.
 
 ------------
-#### Tabla de ventajas y desventajas
-| Gana  | Pierde  |
-| ------------ | ------------ | ------------ |
-| Fuego 🔥 | Tierra 🌱  |
-| Agua 🌊 | Fuego 🔥 |
-| Electricidad ⚡️  | Agua 🌊 |
-| Tierra 🌱|Electricidad ⚡️ |
-
-------------
 
 **Sistemas de vidas:**
 
