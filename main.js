@@ -1,5 +1,5 @@
 let vidasPc = 3;
-let vidasPlayer = 3;
+let vidasJugador = 3;
 let personajeJugador = null;
 let personajePC = null;
 
@@ -83,25 +83,24 @@ function jugarRonda(opcionJugador, opcionComputadora) {
         alert("Has ganado esta ronda. ¡Sigue así!");
         vidasPc--;
     } else {
-        alert("Has perdido esta ronda. ¡Vamos, no te rindas!");
-        vidasPlayer--;
+        if (vidasJugador > 1) {
+            alert("Has perdido esta ronda. ¡Vamos, no te rindas!");
+        }
+        vidasJugador--;
     }
 
-    alert("PUNTAJE \nTú: " + vidasPlayer + " Computer: " + vidasPc);
+    alert("Vidas Restantes​ \nTú: " + vidasJugador + " Computer: " + vidasPc);
 
-    if (vidasPlayer === 0 || vidasPc === 0) {
-        if (vidasPlayer > vidasPc) {
+    if (vidasJugador === 0 || vidasPc === 0) {
+        if (vidasJugador > vidasPc) {
             alert('Has ganado, bien hecho!🥳');
-        } else if (vidasPlayer === vidasPc) {
-            alert('Uff se dio un empate, la próxima será...');
+        } else if (vidasJugador === vidasPc) {
+            alert('Hubo un empate, ¡inténtalo de nuevo!');
         } else {
-            alert('Lamentablemente perdiste 🙁');
+            alert('Lamentablemente perdiste... 🙁');
         }
 
-        // Resultado Final
-        alert("Resultado Final \n" + "Tú: " + vidasPlayer + " Computer: " + vidasPc);
-
-        vidasPlayer = 3;
+        vidasJugador = 3;
         vidasPc = 3;
         ronda = 1;
         document.querySelector('.contenedorPersonajes').style.display = 'block';
@@ -110,10 +109,9 @@ function jugarRonda(opcionJugador, opcionComputadora) {
 }
 
 let ronda = 1;
-const totalRondas = 5;
 
 function jugarJuego(opcionJugador) {
-    alert("Comenzó la ronda " + ronda);
+    alert("Round " + ronda + "\n¡Figth! 🤜🤛");
     const computerSelection = getComputerChoice();
     jugarRonda(opcionJugador, computerSelection);
     ronda++;
@@ -122,7 +120,7 @@ function jugarJuego(opcionJugador) {
 function iniciarJuego() {
     alert("¡Bienvenido a Elemental Dominance! \n¡Demuestra todo tu potencial en la batalla!");
     mostrarTablaVentajas();
-    alert("¡Mucha Suerte!");
+
 }
 
 const btnsPersonajes = document.querySelectorAll('.btn-personaje');
@@ -159,7 +157,7 @@ btnsAtaques.forEach(btn => {
 
 // Botón de reinicio
 document.getElementById('reiniciar').addEventListener('click', () => {
-    vidasPlayer = 3;
+    vidasJugador = 3;
     vidasPc = 3;
     ronda = 1;
     personajeJugador = null;
