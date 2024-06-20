@@ -160,5 +160,4 @@ document.getElementById('reiniciar').addEventListener('click', () => {
     alert("Juego reiniciado. ¡Empieza de nuevo!");
     iniciarJuego();
 });
-
 iniciarJuego();
