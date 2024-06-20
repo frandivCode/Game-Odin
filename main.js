@@ -3,11 +3,10 @@ let vidasJugador = 3;
 let personajeJugador = null;
 let personajePC = null;
 
-// Personajes y sus ataques
 const personajesElementales = [
     {
         personaje: "Magnooki",
-        ataques: ["Bola de fuego", "Remolino de agua", "Enrredaderas venenosas", "Sobrecarga electrica"],
+        ataques: ["Bola de fuego", "Remolino de agua", "Enredaderas venenosas", "Sobrecarga electrica"],
     },
     {
         personaje: "Vortapt",
@@ -19,7 +18,6 @@ const personajesElementales = [
     }
 ];
 
-// Reglas del juego para ganar
 const tiposHabilidades = {
     "Bola de fuego": "fuego",
     "Llamarada": "fuego",
@@ -27,7 +25,7 @@ const tiposHabilidades = {
     "Remolino de agua": "agua",
     "Chorro de agua": "agua",
     "Marea poderosa": "agua",
-    "Enrredaderas venenosas": "planta",
+    "Enredaderas venenosas": "planta",
     "Lluvia de espinas": "planta",
     "Hojas cortantes": "planta",
     "Sobrecarga electrica": "electricidad",
@@ -44,7 +42,7 @@ const reglasAtaques = {
 
 function getComputerChoice() {
     const ataques = [
-        "Bola de fuego", "Remolino de agua", "Enrredaderas venenosas", "Sobrecarga electrica",
+        "Bola de fuego", "Remolino de agua", "Enredaderas venenosas", "Sobrecarga electrica",
         "Llamarada", "Chorro de agua", "Lluvia de espinas", "Electro garra",
         "Soplido infernal", "Marea poderosa", "Hojas cortantes", "Tormenta electrica"
     ];
@@ -69,7 +67,6 @@ function mostrarTablaVentajas() {
     alert(tablaVentajas);
 }
 
-// Elecciones
 function jugarRonda(opcionJugador, opcionComputadora) {
     alert('Elegiste ➡️ ' + opcionJugador);
     alert('El PC eligió ➡️ ' + opcionComputadora);
@@ -89,11 +86,11 @@ function jugarRonda(opcionJugador, opcionComputadora) {
         vidasJugador--;
     }
 
-    alert("Vidas Restantes​ \nTú: " + vidasJugador + " Computer: " + vidasPc);
+    alert("Vidas Restantes​ \nTú: " + vidasJugador + " Computadora: " + vidasPc);
 
     if (vidasJugador === 0 || vidasPc === 0) {
         if (vidasJugador > vidasPc) {
-            alert('Has ganado, bien hecho!🥳');
+            alert('Has ganado, ¡bien hecho! 🥳');
         } else if (vidasJugador === vidasPc) {
             alert('Hubo un empate, ¡inténtalo de nuevo!');
         } else {
@@ -111,7 +108,7 @@ function jugarRonda(opcionJugador, opcionComputadora) {
 let ronda = 1;
 
 function jugarJuego(opcionJugador) {
-    alert("Round " + ronda + "\n¡Figth! 🤜🤛");
+    alert("Round " + ronda + "\n¡Fight! 🤜🤛");
     const computerSelection = getComputerChoice();
     jugarRonda(opcionJugador, computerSelection);
     ronda++;
@@ -120,7 +117,6 @@ function jugarJuego(opcionJugador) {
 function iniciarJuego() {
     alert("¡Bienvenido a Elemental Dominance! \n¡Demuestra todo tu potencial en la batalla!");
     mostrarTablaVentajas();
-
 }
 
 const btnsPersonajes = document.querySelectorAll('.btn-personaje');
@@ -134,12 +130,10 @@ btnsPersonajes.forEach(btn => {
         document.querySelector('.contenedorPersonajes').style.display = 'none';
         document.querySelector('.contenedorBotones').style.display = 'block';
 
-        // Esconder todos los botones de ataques
         document.querySelectorAll('.contenedorBotones .btn-choice').forEach(ataqueBtn => {
             ataqueBtn.style.display = 'none';
         });
 
-        // Mostrar solo los ataques del personaje seleccionado
         const ataquesJugador = personajesElementales.find(p => p.personaje === personajeJugador).ataques;
         ataquesJugador.forEach(ataque => {
             document.getElementById(ataque.toLowerCase().replace(/ /g, '-')).style.display = 'inline-block';
@@ -155,7 +149,6 @@ btnsAtaques.forEach(btn => {
     });
 });
 
-// Botón de reinicio
 document.getElementById('reiniciar').addEventListener('click', () => {
     vidasJugador = 3;
     vidasPc = 3;
