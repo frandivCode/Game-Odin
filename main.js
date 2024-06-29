@@ -2,19 +2,20 @@ let vidasPc = 3;
 let vidasJugador = 3;
 let personajeJugador = null;
 let personajePC = null;
+let ronda = 1;
 
 const personajesElementales = [
     {
         personaje: "Magnooki",
-        ataques: ["Bola de fuego", "Remolino de agua", "Enredaderas venenosas", "Sobrecarga electrica"],
+        ataques: ["Bola de fuego", "Remolino de agua", "Enredaderas venenosas", "Rafaga de aire"],
     },
     {
         personaje: "Vortapt",
-        ataques: ["Llamarada", "Chorro de agua", "Lluvia de espinas", "Electro garra"],
+        ataques: ["Llamarada", "Chorro de agua", "Lluvia de espinas", "Tornado"],
     },
     {
         personaje: "Gleamur",
-        ataques: ["Soplido infernal", "Marea poderosa", "Hojas cortantes", "Tormenta electrica"],
+        ataques: ["Soplido infernal", "Marea poderosa", "Hojas cortantes", "Corte de viento"],
     }
 ];
 
@@ -28,25 +29,26 @@ const tiposHabilidades = {
     "Enredaderas venenosas": "planta",
     "Lluvia de espinas": "planta",
     "Hojas cortantes": "planta",
-    "Sobrecarga electrica": "electricidad",
-    "Electro garra": "electricidad",
-    "Tormenta electrica": "electricidad"
+    "Rafaga de aire": "viento",
+    "Tornado": "viento",
+    "Corte de viento": "viento"
 };
 
 const reglasAtaques = {
     "fuego": ["planta"],
     "agua": ["fuego"],
-    "planta": ["electricidad"],
-    "electricidad": ["agua"]
+    "planta": ["viento"],
+    "viento": ["agua"]
 };
 
 function getComputerChoice() {
     const ataques = [
-        "Bola de fuego", "Remolino de agua", "Enredaderas venenosas", "Sobrecarga electrica",
-        "Llamarada", "Chorro de agua", "Lluvia de espinas", "Electro garra",
-        "Soplido infernal", "Marea poderosa", "Hojas cortantes", "Tormenta electrica"
+        "Bola de fuego", "Remolino de agua", "Enredaderas venenosas", "Rafaga de aire",
+        "Llamarada", "Chorro de agua", "Lluvia de espinas", "Tornado",
+        "Soplido infernal", "Marea poderosa", "Hojas cortantes", "Corte de viento"
     ];
-    const eleccionPC = Math.floor(Math.random() * ataques.length);
+    const number = Math.floor(Math.random() * 1000);
+    const eleccionPC = number % ataques.length;
     return ataques[eleccionPC];
 }
 
@@ -56,20 +58,13 @@ function getComputerCharacter() {
     return personajes[eleccionPC];
 }
 
-function mostrarTablaVentajas() {
-    const tablaVentajas = `
-    Ventajas y Desventajas:
-    🔥 Fuego vence ➡️ Planta 🌱
-    💧 Agua vence ➡️ Fuego 🔥
-    🌱 Planta vence ➡️ Electricidad ⚡
-    ⚡ Electricidad vence ➡️ Agua 💧
-    `;
-    alert(tablaVentajas);
+function mostrarMensaje(mensaje) {
+    alert(mensaje);
 }
 
 function jugarRonda(opcionJugador, opcionComputadora) {
-    alert('Elegiste ➡️ ' + opcionJugador);
-    alert('El PC eligió ➡️ ' + opcionComputadora);
+    alert(`Elegiste ➡️ ${opcionJugador} 
+el PC eligió ➡️ ${opcionComputadora}`);
 
     const tipoJugador = tiposHabilidades[opcionJugador];
     const tipoComputadora = tiposHabilidades[opcionComputadora];
@@ -86,37 +81,48 @@ function jugarRonda(opcionJugador, opcionComputadora) {
         vidasJugador--;
     }
 
-    alert("Vidas Restantes​ \nTú: " + vidasJugador + " Computadora: " + vidasPc);
+    alert(`Vidas Restantes​ \nTú: ${vidasJugador} Computadora: ${vidasPc}`);
 
     if (vidasJugador === 0 || vidasPc === 0) {
+        mostrarResultadoFinal();
+    }
+}
+
+function mostrarResultadoFinal() {
+    if (vidasJugador === 0 || vidasPc === 0) {
         if (vidasJugador > vidasPc) {
-            alert('Has ganado, ¡bien hecho! 🥳');
+            mostrarMensaje('Has ganado, ¡bien hecho! 🥳');
         } else if (vidasJugador === vidasPc) {
-            alert('Hubo un empate, ¡inténtalo de nuevo!');
+            mostrarMensaje('Hubo un empate, ¡inténtalo de nuevo!');
         } else {
-            alert('Lamentablemente perdiste... 🙁');
+            mostrarMensaje('Lamentablemente perdiste... 🙁');
         }
 
-        vidasJugador = 3;
-        vidasPc = 3;
-        ronda = 1;
-        document.querySelector('.contenedorPersonajes').style.display = 'block';
+        botonReinicio.style.display = 'block';
+        document.querySelector('.contenedorPersonajes').style.display = 'none';
         document.querySelector('.contenedorBotones').style.display = 'none';
     }
 }
 
-let ronda = 1;
-
 function jugarJuego(opcionJugador) {
-    alert("Round " + ronda + "\n¡Fight! 🤜🤛");
+    mostrarMensaje(`Round ${ronda}\n¡Fight! 🤜🤛`);
     const computerSelection = getComputerChoice();
     jugarRonda(opcionJugador, computerSelection);
     ronda++;
 }
 
 function iniciarJuego() {
-    alert("¡Bienvenido a Elemental Dominance! \n¡Demuestra todo tu potencial en la batalla!");
-    mostrarTablaVentajas();
+    setTimeout(function () {
+        document.getElementById('startbutton').addEventListener('click', function () {
+            document.getElementById('inicio').style.display = 'none';
+            document.getElementById('juego').style.display = 'block';
+            playMusica();
+        });
+    }, 1000);
+}
+
+function playMusica(){
+    document.getElementById('musica-de-batalla').play();
 }
 
 const btnsPersonajes = document.querySelectorAll('.btn-personaje');
@@ -125,10 +131,11 @@ btnsPersonajes.forEach(btn => {
     btn.addEventListener('click', () => {
         personajeJugador = btn.getAttribute('data-personaje');
         personajePC = getComputerCharacter();
-        alert(`Has elegido a ${personajeJugador} y el PC ha elegido a ${personajePC}`);
+        mostrarMensaje(`Has elegido a ${personajeJugador}\nPC ha elegido a ${personajePC}`);
 
         document.querySelector('.contenedorPersonajes').style.display = 'none';
         document.querySelector('.contenedorBotones').style.display = 'block';
+        document.getElementById('eleccion-personajes').style.display = 'none';
 
         document.querySelectorAll('.contenedorBotones .btn-choice').forEach(ataqueBtn => {
             ataqueBtn.style.display = 'none';
@@ -149,6 +156,9 @@ btnsAtaques.forEach(btn => {
     });
 });
 
+let botonReinicio = document.querySelector('.buttons');
+botonReinicio.style.display = 'none';
+
 document.getElementById('reiniciar').addEventListener('click', () => {
     vidasJugador = 3;
     vidasPc = 3;
@@ -157,7 +167,8 @@ document.getElementById('reiniciar').addEventListener('click', () => {
     personajePC = null;
     document.querySelector('.contenedorPersonajes').style.display = 'block';
     document.querySelector('.contenedorBotones').style.display = 'none';
-    alert("Juego reiniciado. ¡Empieza de nuevo!");
-    iniciarJuego();
+    document.getElementById('eleccion-personajes').style.display = 'block';
+    mostrarMensaje("Juego reiniciado. ¡Empieza de nuevo!");
+    botonReinicio.style.display = 'none'; 
 });
 iniciarJuego();

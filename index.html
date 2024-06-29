@@ -10,45 +10,71 @@
 </head>
 
 <body>
-    <section class="contenedorPrincipal">
-        <h1 class="tituloPrincipal">Elemental Dominance</h1>
+    <!-- Pantalla inicial -->
+    <div id="inicio" class="pantalla-inicio">
+        <button id="startbutton">Iniciar juego</button>
+    </div>
 
-        <div class="contenedorPersonajes">
-            <button class="btn-personaje btn-choice" data-personaje="Magnooki">Magnooki</button>
-            <button class="btn-personaje btn-choice" data-personaje="Vortapt">Vortapt</button>
-            <button class="btn-personaje btn-choice" data-personaje="Gleamur">Gleamur</button>
-        </div>
+    <!-- Pantalla juego -->
+    <div id="juego" class="pantalla-juego" style="display: none;">
+        <section class="contenedorPrincipal">
 
-        <div class="contenedorBotones" style="display: none;">
-            <div class="attacksMagnooki">
-                <button class="btn-choice" id="bola-de-fuego">Bola de fuego</button>
-                <button class="btn-choice" id="remolino-de-agua">Remolino de agua</button>
-                <button class="btn-choice" id="enredaderas-venenosas">enredaderas venenosas</button>
-                <button class="btn-choice" id="sobrecarga-electrica">Sobrecarga electrica</button>
+            <!-- Titulo -->
+            <h1 class="tituloPrincipal tracking-in-expand-fwd-top">Elemental Dominance</h1>
+
+            <!-- Vidas -->
+            <div class="vidas-container">
+                <div class="vidas-player"></div>
+                <div class="vidas-pc"></div>
             </div>
 
-            <div class="attacksVortapt">
-                <button class="btn-choice" id="llamarada">Llamarada</button>
-                <button class="btn-choice" id="chorro-de-agua">Chorro de agua</button>
-                <button class="btn-choice" id="lluvia-de-espinas">Lluvia de espinas</button>
-                <button class="btn-choice" id="electro-garra">Electro garra</button>
+            <!-- Personajes -->
+            <div class="container-flecha" id="eleccion-personajes">
+                <h2>Elige tu personaje</h2>
+                <div class="arrow-down"></div>
+            </div>
+            <div class="contenedorPersonajes">
+                <button class="btn-personaje btn-choice" data-personaje="Magnooki">Magnooki</button>
+                <button class="btn-personaje btn-choice" data-personaje="Vortapt">Vortapt</button>
+                <button class="btn-personaje btn-choice" data-personaje="Gleamur">Gleamur</button>
             </div>
 
-            <div class="attacksGleamur">
-                <button class="btn-choice" id="soplido-infernal">Soplido infernal</button>
-                <button class="btn-choice" id="marea-poderosa">Marea poderosa</button>
-                <button class="btn-choice" id="hojas-cortantes">Hojas cortantes</button>
-                <button class="btn-choice" id="tormenta-electrica">Tormenta electrica</button>
-            </div>
-        </div>
+            <!-- Ataques Personaje Uno -->
+            <div class="contenedorBotones" style="display: none;">
+                <div class="attacksMagnooki">
+                    <button class="btn-choice" id="bola-de-fuego">Bola de fuego</button>
+                    <button class="btn-choice" id="remolino-de-agua">Remolino de agua</button>
+                    <button class="btn-choice" id="enredaderas-venenosas">Enredaderas venenosas</button>
+                    <button class="btn-choice" id="rafaga-de-aire">Rafaga de aire</button>
+                </div>
 
-        <div class="buttons">
-            <button class="btn-restart" id="reiniciar"><span></span>
-                <p data-text="Reiniciar" data-title="Nuevo Juego"></p>
-            </button>
-        </div>
-    </section>
-    <script src="main.js"></script>
+                <!-- Ataques Personaje Dos -->
+                <div class="attacksVortapt">
+                    <button class="btn-choice" id="llamarada">Llamarada</button>
+                    <button class="btn-choice" id="chorro-de-agua">Chorro de agua</button>
+                    <button class="btn-choice" id="lluvia-de-espinas">Lluvia de espinas</button>
+                    <button class="btn-choice" id="tornado">Tornado</button>
+                </div>
+
+                <!-- Ataques Personaje Tres -->
+                <div class="attacksGleamur">
+                    <button class="btn-choice" id="soplido-infernal">Soplido infernal</button>
+                    <button class="btn-choice" id="marea-poderosa">Marea poderosa</button>
+                    <button class="btn-choice" id="hojas-cortantes">Hojas cortantes</button>
+                    <button class="btn-choice" id="corte-de-viento">Corte de viento</button>
+                </div>
+            </div>
+            <!-- Botón reinicio de partida -->
+            <div class="buttons">
+                <button class="btn-restart" id="reiniciar"><span></span>
+                    <p data-text="Reiniciar" data-title="Jugar de nuevo"></p>
+                </button>
+            </div>
+        </section>
+        <audio id="musica-de-batalla">
+            <source src="audio_batalla.mp3" type="audio/mpeg">
+        </audio>
+        <script src="main.js"></script>
 </body>
 
 </html>
