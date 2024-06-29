@@ -90,55 +90,17 @@ html {
     font-family: "Press Start 2P", system-ui;
     margin-block-end: 4rem;
     text-align: center;
-    filter:
-        drop-shadow(1px 1px 3px black) drop-shadow(3px 3px 2px #219644) drop-shadow(3px 3px 3px #219644);
-}
-
-.tituloPrincipal::selection {
-    background-color: #219644;
-}
-
-.tracking-in-expand-fwd-top {
-    -webkit-animation: tracking-in-expand-fwd-top 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
-    animation: tracking-in-expand-fwd-top 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
-}
-
-@-webkit-keyframes tracking-in-expand-fwd-top {
-    0% {
-        letter-spacing: -0.5em;
-        -webkit-transform: translateZ(-700px) translateY(-500px);
-        transform: translateZ(-700px) translateY(-500px);
-        opacity: 0;
-    }
-
-    40% {
-        opacity: 0.6;
-    }
-
-    100% {
-        -webkit-transform: translateZ(0) translateY(0);
-        transform: translateZ(0) translateY(0);
-        opacity: 1;
-    }
-}
-
-@keyframes tracking-in-expand-fwd-top {
-    0% {
-        letter-spacing: -0.5em;
-        -webkit-transform: translateZ(-700px) translateY(-500px);
-        transform: translateZ(-700px) translateY(-500px);
-        opacity: 0;
-    }
-
-    40% {
-        opacity: 0.6;
-    }
-
-    100% {
-        -webkit-transform: translateZ(0) translateY(0);
-        transform: translateZ(0) translateY(0);
-        opacity: 1;
-    }
+    background: linear-gradient(90deg,
+            #1e90ff,
+            #00bfff,
+            #32cd32,
+            #61be61,
+            #ff4500,
+            #ff8c00,
+            #e4cff8,
+            #ebe7eb);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .container-flecha {
@@ -152,7 +114,6 @@ html {
     font-size: 22px;
     font-family: "Press Start 2P", system-ui;
     color: #ffffff;
-    filter: drop-shadow(1px 1px 2px #219644) drop-shadow(3px 3px 3px #219644);
     animation: jump 1s infinite;
     left: 50%;
     position: absolute;
@@ -217,7 +178,7 @@ html {
 .btn-choice {
     width: 160px;
     height: 60px;
-    line-height: 1.7;
+    line-height: 2;
     background-color: #1f1e1e;
     color: #EEEEEE;
     font-size: 10px;
@@ -241,8 +202,8 @@ html {
 }
 
 .btn-restart {
-    width: 160px;
-    height: 40px;
+    width: 180px;
+    height: 50px;
     background-color: #1f1e1e;
     margin: 30px;
     color: #EEEEEE;
@@ -334,6 +295,7 @@ html {
 
 .buttons button p:before {
     content: attr(data-title);
+    line-height: 2;
     top: 50%;
     transform: translateY(-50%);
 }
@@ -433,15 +395,15 @@ html {
 
     .btn-choice {
         width: 125px;
+        font-size: 7px;
         height: 40px;
         margin: 10px;
     }
 
     #startbutton {
         font-size: 9px;
-        width: 100px;
         padding: 0;
-        left: 40%;
+        left: 37%;
     }
 
     .container-flecha {
@@ -468,9 +430,9 @@ html {
     }
 
     .btn-restart {
-        width: 100px;
-        height: 40px;
+        width: 140px;
         margin: 20px;
         font-size: 8px;
+        margin-bottom: 5rem;
     }
 }

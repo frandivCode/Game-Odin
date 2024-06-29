@@ -132,8 +132,22 @@ function iniciarJuego() {
             document.getElementById('inicio').style.display = 'none';
             document.getElementById('juego').style.display = 'block';
             playMusicBattle();
+            escribirTexto("Elemental Dominance", document.getElementById('tituloPrincipal'));
         });
     }, 1300);
+}
+
+// Función para escribir texto
+function escribirTexto(texto, elemento) {
+    let i = 0;
+    const interval = setInterval(() => {
+        if (i < texto.length) {
+            elemento.textContent += texto.charAt(i);
+            i++;
+        } else {
+            clearInterval(interval);
+        }
+    }, 100); // Velocidad de la animación (en milisegundos)
 }
 
 // Audio de la batalla
