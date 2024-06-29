@@ -7,7 +7,7 @@ Elemental Dominance es un videojuego de estrategia y combate inspirado en el est
 - Fuego 🔥
 - Agua 🌊
 - Tierra 🌱
-- Electricidad ⚡️
+- Viento 🌬️
 
 ------------
 #### ¿Cómo se juega?
