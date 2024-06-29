@@ -1,9 +1,11 @@
+// Variables para el estado del juego
 let vidasPc = 3;
 let vidasJugador = 3;
 let personajeJugador = null;
 let personajePC = null;
 let ronda = 1;
 
+// Lista de personajes elementales con sus ataques
 const personajesElementales = [
     {
         personaje: "Magnooki",
@@ -19,6 +21,7 @@ const personajesElementales = [
     }
 ];
 
+// Diccionario que asocia cada ataque con su tipo elemental
 const tiposHabilidades = {
     "Bola de fuego": "fuego",
     "Llamarada": "fuego",
@@ -34,6 +37,7 @@ const tiposHabilidades = {
     "Corte de viento": "viento"
 };
 
+// Reglas de ataques: qué tipo de ataque es fuerte contra qué tipo
 const reglasAtaques = {
     "fuego": ["planta"],
     "agua": ["fuego"],
@@ -41,6 +45,7 @@ const reglasAtaques = {
     "viento": ["agua"]
 };
 
+// Selecciona un ataque aleatorio para la computadora
 function getComputerChoice() {
     const ataques = [
         "Bola de fuego", "Remolino de agua", "Enredaderas venenosas", "Rafaga de aire",
@@ -52,16 +57,19 @@ function getComputerChoice() {
     return ataques[eleccionPC];
 }
 
+// Selecciona un personaje aleatorio para la computadora
 function getComputerCharacter() {
     const personajes = personajesElementales.map(p => p.personaje);
     const eleccionPC = Math.floor(Math.random() * personajes.length);
     return personajes[eleccionPC];
 }
 
+// Muestra un mensaje al usuario
 function mostrarMensaje(mensaje) {
     alert(mensaje);
 }
 
+// Juega una ronda del juego
 function jugarRonda(opcionJugador, opcionComputadora) {
     alert(`Elegiste ➡️ ${opcionJugador} 
 el PC eligió ➡️ ${opcionComputadora}`);
@@ -69,6 +77,7 @@ el PC eligió ➡️ ${opcionComputadora}`);
     const tipoJugador = tiposHabilidades[opcionJugador];
     const tipoComputadora = tiposHabilidades[opcionComputadora];
 
+    // Determina el resultado de la ronda
     if (tipoJugador === tipoComputadora) {
         alert("¡Hay un empate!");
     } else if (reglasAtaques[tipoJugador] && reglasAtaques[tipoJugador].includes(tipoComputadora)) {
@@ -83,18 +92,22 @@ el PC eligió ➡️ ${opcionComputadora}`);
 
     alert(`Vidas Restantes​ \nTú: ${vidasJugador} Computadora: ${vidasPc}`);
 
+    // Muestra el resultado final si alguien se queda sin vidas
     if (vidasJugador === 0 || vidasPc === 0) {
         mostrarResultadoFinal();
     }
 }
 
+// Muestra el resultado final del juego
 function mostrarResultadoFinal() {
     if (vidasJugador === 0 || vidasPc === 0) {
         if (vidasJugador > vidasPc) {
+            playSoundVictory();
             mostrarMensaje('Has ganado, ¡bien hecho! 🥳');
         } else if (vidasJugador === vidasPc) {
             mostrarMensaje('Hubo un empate, ¡inténtalo de nuevo!');
         } else {
+            playSoundDefeat();
             mostrarMensaje('Lamentablemente perdiste... 🙁');
         }
 
@@ -104,6 +117,7 @@ function mostrarResultadoFinal() {
     }
 }
 
+// Función para iniciar una nueva ronda
 function jugarJuego(opcionJugador) {
     mostrarMensaje(`Round ${ronda}\n¡Fight! 🤜🤛`);
     const computerSelection = getComputerChoice();
@@ -111,20 +125,43 @@ function jugarJuego(opcionJugador) {
     ronda++;
 }
 
+// Función para iniciar el juego y configurar el botón de inicio
 function iniciarJuego() {
     setTimeout(function () {
         document.getElementById('startbutton').addEventListener('click', function () {
             document.getElementById('inicio').style.display = 'none';
             document.getElementById('juego').style.display = 'block';
-            playMusica();
+            playMusicBattle();
         });
-    }, 1000);
+    }, 1300);
 }
 
-function playMusica(){
-    document.getElementById('musica-de-batalla').play();
+// Audio de la batalla
+function playMusicBattle() {
+    let audio = document.getElementById('musica-de-batalla');
+    audio.loop = true;
+    audio.play();
 }
 
+// Audio de victoria
+function playSoundVictory() {
+    let audio = document.getElementById('musica-de-batalla');
+    audio.pause();
+    audio.currentTime = 0;
+    let victory = document.getElementById('sonido-de-victoria');
+    victory.play();
+}
+
+// Audio de derrota
+function playSoundDefeat() {
+    let audio = document.getElementById('musica-de-batalla');
+    audio.pause();
+    audio.currentTime = 0;
+    let gameOver = document.getElementById('game-over');
+    gameOver.play();
+}
+
+// Configura los botones de selección de personajes
 const btnsPersonajes = document.querySelectorAll('.btn-personaje');
 
 btnsPersonajes.forEach(btn => {
@@ -148,6 +185,7 @@ btnsPersonajes.forEach(btn => {
     });
 });
 
+// Configura los botones de selección de ataques
 const btnsAtaques = document.querySelectorAll('.contenedorBotones .btn-choice');
 
 btnsAtaques.forEach(btn => {
@@ -156,10 +194,12 @@ btnsAtaques.forEach(btn => {
     });
 });
 
+// Configura el botón de reinicio
 let botonReinicio = document.querySelector('.buttons');
 botonReinicio.style.display = 'none';
 
 document.getElementById('reiniciar').addEventListener('click', () => {
+    playMusicBattle();
     vidasJugador = 3;
     vidasPc = 3;
     ronda = 1;
@@ -169,6 +209,8 @@ document.getElementById('reiniciar').addEventListener('click', () => {
     document.querySelector('.contenedorBotones').style.display = 'none';
     document.getElementById('eleccion-personajes').style.display = 'block';
     mostrarMensaje("Juego reiniciado. ¡Empieza de nuevo!");
-    botonReinicio.style.display = 'none'; 
+    botonReinicio.style.display = 'none';
 });
+
+// Inicia el juego
 iniciarJuego();
