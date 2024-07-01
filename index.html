@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="icon" href="./img/elements.jpeg">
     <title>Elemental Dominance</title>
 </head>
+
 <body>
     <!-- Pantalla inicial -->
     <div id="inicio" class="pantalla-inicio">
@@ -14,16 +16,32 @@
     </div>
 
     <!-- Pantalla juego -->
-    <div id="juego" class="pantalla-juego" style="display: none;">
+    <div id="juego" class="pantalla-juego">
         <section class="contenedorPrincipal">
 
             <!-- Titulo -->
             <h1 id="tituloPrincipal" class="tituloPrincipal"></h1>
 
+            <!-- Rondas -->
+            <div id="container-rondas" class="containerRondas">
+                <h3 id="msj-pelea"></h3>
+            </div>
+
             <!-- Vidas -->
-            <div class="vidas-container">
-                <div class="vidas-player"></div>
-                <div class="vidas-pc"></div>
+            <div id="container-vidas" class="containerVidas">
+                <div id="vidas-player"></div>
+                <h2 id="title-vidas">Vidas Restantes</h2>
+                <div id="vidas-computer"></div>
+            </div>
+
+            <!-- Mensajes Batalla -->
+            <div id="container-mensajes" class="containerMensajesBatalla">
+                <p id="mensajes-batalla" class="text-mensajes"></p>
+            </div>
+
+            <!-- Resultado Final -->
+            <div id="container-resultado" class="containerMensajeFinal">
+                <p id="mensaje-final"></p>
             </div>
 
             <!-- Personajes -->
@@ -38,7 +56,7 @@
             </div>
 
             <!-- Ataques Personaje Uno -->
-            <div class="contenedorBotones" style="display: none;">
+            <div class="contenedorBotones">
                 <div class="attacksMagnooki">
                     <button class="btn-choice" id="bola-de-fuego">Bola de fuego</button>
                     <button class="btn-choice" id="remolino-de-agua">Remolino de agua</button>
@@ -62,6 +80,7 @@
                     <button class="btn-choice" id="corte-de-viento">Corte de viento</button>
                 </div>
             </div>
+
             <!-- Botón reinicio de partida -->
             <div class="buttons">
                 <button class="btn-restart" id="reiniciar"><span></span>
@@ -74,4 +93,5 @@
         <audio src="./audio/winning-sound.mp3" id="sonido-de-victoria"></audio>
         <script src="main.js"></script>
 </body>
+
 </html>

@@ -78,32 +78,50 @@ html {
 .contenedorPrincipal {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     height: 100vh;
 }
 
 .tituloPrincipal {
-    height: 100px;
-    color: #ffffff;
+    margin-top: 2rem;
     font-size: 40px;
     font-family: "Press Start 2P", system-ui;
-    margin-block-end: 4rem;
     text-align: center;
     background: linear-gradient(90deg,
-            #1e90ff,
+            #104d8a,
             #00bfff,
-            #32cd32,
-            #61be61,
+            #34a334,
+            #1b6b1b,
             #ff4500,
             #ff8c00,
-            #e4cff8,
+            #e3e1e6,
             #ebe7eb);
+    background-size: 200% 200%;
     background-clip: text;
+    -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    animation: rainbow 5s ease infinite;
+}
+
+@keyframes rainbow {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .container-flecha {
+    display: flex;
+    align-items: center;
+    margin-top: 5rem;
     position: relative;
     height: 100px;
     width: 100%;
@@ -111,7 +129,7 @@ html {
 
 .container-flecha h2 {
     text-align: center;
-    font-size: 22px;
+    font-size: 20px;
     font-family: "Press Start 2P", system-ui;
     color: #ffffff;
     animation: jump 1s infinite;
@@ -126,7 +144,7 @@ html {
     border-right: 15px solid transparent;
     border-top: 30px solid #35cf20;
     position: absolute;
-    bottom: 10px;
+    bottom: -20px;
     left: 50%;
     transform: translateX(-50%);
     animation: jump 1s infinite;
@@ -144,17 +162,118 @@ html {
     }
 }
 
-.contenedorPersonajes {
+#container-mensajes {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    min-height: 200px;
+    width: 100%;
     margin-top: 3rem;
+}
+
+#mensajes-batalla {
+    color: #ffffff;
+    font-size: 15.5px;
+    font-family: "Press Start 2P", system-ui;
+    text-align: center;
+}
+
+.ganado {
+    color: green;
+}
+
+.perdido {
+    color: red;
+}
+
+#container-vidas {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    color: #ffffff;
+    font-size: 20px;
+    font-family: "Press Start 2P", system-ui;
+    margin-top: 20px;
+}
+
+#vidas-computer,
+#vidas-player {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#title-vidas {
+    font-size: 18px;
+}
+
+#container-resultado {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#mensaje-final {
+    text-align: center;
+    font-size: 40px;
+    font-family: "Press Start 2P", system-ui;
+}
+
+.mensaje-ganador {
+    color: gold;
+}
+
+.mensaje-perdedor {
+    color: red;
+}
+
+.animated {
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
+}
+
+.bounce {
+    animation-name: bounce;
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-30px);
+    }
+
+    60% {
+        transform: translateY(-15px);
+    }
+}
+
+.anaglyph {
+    text-shadow: 4px 2px 2px red, 4px -2px 2px cyan;
+}
+
+.contenedorPersonajes {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 3rem;
 }
 
 .contenedorBotones {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin-top: 3rem;
+    display: none;
 }
 
 .attacksMagnooki {
@@ -386,6 +505,7 @@ html {
     }
 
     .pantalla-juego {
+        display: none;
         background-position: center center;
     }
 

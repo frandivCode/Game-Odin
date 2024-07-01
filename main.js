@@ -1,11 +1,9 @@
-// Variables para el estado del juego
 let vidasPc = 3;
 let vidasJugador = 3;
 let personajeJugador = null;
 let personajePC = null;
 let ronda = 1;
 
-// Lista de personajes elementales con sus ataques
 const personajesElementales = [
     {
         personaje: "Magnooki",
@@ -21,7 +19,6 @@ const personajesElementales = [
     }
 ];
 
-// Diccionario que asocia cada ataque con su tipo elemental
 const tiposHabilidades = {
     "Bola de fuego": "fuego",
     "Llamarada": "fuego",
@@ -45,79 +42,102 @@ const reglasAtaques = {
     "viento": ["agua"]
 };
 
-// Selecciona un ataque aleatorio para la computadora
 function getComputerChoice() {
     const ataques = [
         "Bola de fuego", "Remolino de agua", "Enredaderas venenosas", "Rafaga de aire",
         "Llamarada", "Chorro de agua", "Lluvia de espinas", "Tornado",
         "Soplido infernal", "Marea poderosa", "Hojas cortantes", "Corte de viento"
     ];
-    const number = Math.floor(Math.random() * 1000);
-    const eleccionPC = number % ataques.length;
-    return ataques[eleccionPC];
+    const randomIndex = Math.floor(Math.random() * ataques.length);
+    return ataques[randomIndex];
 }
 
-// Selecciona un personaje aleatorio para la computadora
 function getComputerCharacter() {
-    const personajes = personajesElementales.map(p => p.personaje);
-    const eleccionPC = Math.floor(Math.random() * personajes.length);
-    return personajes[eleccionPC];
+    const eleccionPC = Math.floor(Math.random() * personajesElementales.length);
+    return personajesElementales[eleccionPC].personaje;
 }
 
-// Muestra un mensaje al usuario
 function mostrarMensaje(mensaje) {
     alert(mensaje);
 }
 
-// Juega una ronda del juego
+// Mensaje de la batalla 
+function mostrarMensajeBatalla(msjBatalla, clase = '') {
+    const mensajeBatalla = document.getElementById('mensajes-batalla');
+    mensajeBatalla.innerHTML = msjBatalla;
+    mensajeBatalla.className = 'text-mensajes ' + clase;
+}
+
+// Función para mostrar las vidas del jugador y la computadora
+function mostrarVidas() {
+    const vidasContainer = document.getElementById('container-vidas');
+    vidasContainer.style.display = 'flex';
+
+    const vidasComputer = document.getElementById('vidas-computer');
+    vidasComputer.innerHTML = vidasPc;
+    const vidasPlayer = document.getElementById('vidas-player');
+    vidasPlayer.innerHTML = vidasJugador;
+}
+
+// Función para jugar una ronda
 function jugarRonda(opcionJugador, opcionComputadora) {
-    alert(`Elegiste ➡️ ${opcionJugador} 
-el PC eligió ➡️ ${opcionComputadora}`);
+    mostrarMensaje(`Elegiste ➡️ ${opcionJugador} \n el PC eligió ➡️ ${opcionComputadora}`);
 
     const tipoJugador = tiposHabilidades[opcionJugador];
     const tipoComputadora = tiposHabilidades[opcionComputadora];
 
-    // Determina el resultado de la ronda
     if (tipoJugador === tipoComputadora) {
-        alert("¡Hay un empate!");
+        mostrarMensajeBatalla("¡Hay un empate!");
     } else if (reglasAtaques[tipoJugador] && reglasAtaques[tipoJugador].includes(tipoComputadora)) {
-        alert("Has ganado esta ronda. ¡Sigue así!");
+        mostrarMensajeBatalla("Has <span class=\"ganado\">ganado</span> esta ronda!");
         vidasPc--;
     } else {
         if (vidasJugador > 1) {
-            alert("Has perdido esta ronda. ¡Vamos, no te rindas!");
+            mostrarMensajeBatalla("Has <span class=\"perdido\">perdido</span> esta ronda.");
         }
         vidasJugador--;
     }
+    mostrarVidas();
 
-    alert(`Vidas Restantes​ \nTú: ${vidasJugador} Computadora: ${vidasPc}`);
-
-    // Muestra el resultado final si alguien se queda sin vidas
+    // Verifica si el juego ha terminado después de cada ronda
     if (vidasJugador === 0 || vidasPc === 0) {
         mostrarResultadoFinal();
     }
 }
 
-// Muestra el resultado final del juego
+// Función para mostrar el resultado final del juego
 function mostrarResultadoFinal() {
+    const containerResultado = document.getElementById('container-resultado');
+    const mensajeFinal = document.getElementById('mensaje-final');
+
     if (vidasJugador === 0 || vidasPc === 0) {
         if (vidasJugador > vidasPc) {
+            mensajeFinal.innerHTML = 'You Win!';
+            mensajeFinal.className = 'mensaje-ganador';
             playSoundVictory();
-            mostrarMensaje('Has ganado, ¡bien hecho! 🥳');
         } else if (vidasJugador === vidasPc) {
-            mostrarMensaje('Hubo un empate, ¡inténtalo de nuevo!');
+            mensajeFinal.innerHTML = 'Empate';
         } else {
+            mensajeFinal.innerHTML = 'Game Over';
+            mensajeFinal.className = 'mensaje-perdedor';
             playSoundDefeat();
-            mostrarMensaje('Lamentablemente perdiste... 🙁');
         }
 
+        const vidasContainer = document.getElementById('container-vidas');
+        vidasContainer.style.display = 'none';
+
         botonReinicio.style.display = 'block';
+        document.getElementById('container-mensajes').style.display = 'none';
         document.querySelector('.contenedorPersonajes').style.display = 'none';
         document.querySelector('.contenedorBotones').style.display = 'none';
+
+        containerResultado.style.display = 'block';
+    } else {
+        // Si el juego no ha terminado, ocultamos el mensaje final
+        containerResultado.style.display = 'none';
     }
 }
 
-// Función para iniciar una nueva ronda
 function jugarJuego(opcionJugador) {
     mostrarMensaje(`Round ${ronda}\n¡Fight! 🤜🤛`);
     const computerSelection = getComputerChoice();
@@ -127,6 +147,7 @@ function jugarJuego(opcionJugador) {
 
 // Función para iniciar el juego y configurar el botón de inicio
 function iniciarJuego() {
+    document.getElementById('container-vidas').style.display = 'none';
     setTimeout(function () {
         document.getElementById('startbutton').addEventListener('click', function () {
             document.getElementById('inicio').style.display = 'none';
@@ -147,7 +168,7 @@ function escribirTexto(texto, elemento) {
         } else {
             clearInterval(interval);
         }
-    }, 100); // Velocidad de la animación (en milisegundos)
+    }, 100);
 }
 
 // Audio de la batalla
@@ -183,7 +204,7 @@ btnsPersonajes.forEach(btn => {
         personajeJugador = btn.getAttribute('data-personaje');
         personajePC = getComputerCharacter();
         mostrarMensaje(`Has elegido a ${personajeJugador}\nPC ha elegido a ${personajePC}`);
-
+        mostrarVidas();
         document.querySelector('.contenedorPersonajes').style.display = 'none';
         document.querySelector('.contenedorBotones').style.display = 'block';
         document.getElementById('eleccion-personajes').style.display = 'none';
@@ -199,7 +220,6 @@ btnsPersonajes.forEach(btn => {
     });
 });
 
-// Configura los botones de selección de ataques
 const btnsAtaques = document.querySelectorAll('.contenedorBotones .btn-choice');
 
 btnsAtaques.forEach(btn => {
@@ -208,7 +228,6 @@ btnsAtaques.forEach(btn => {
     });
 });
 
-// Configura el botón de reinicio
 let botonReinicio = document.querySelector('.buttons');
 botonReinicio.style.display = 'none';
 
@@ -219,12 +238,25 @@ document.getElementById('reiniciar').addEventListener('click', () => {
     ronda = 1;
     personajeJugador = null;
     personajePC = null;
+
+    document.getElementById('container-vidas').style.display = 'none';
     document.querySelector('.contenedorPersonajes').style.display = 'block';
     document.querySelector('.contenedorBotones').style.display = 'none';
     document.getElementById('eleccion-personajes').style.display = 'block';
+
+    const mensajeBatalla = document.getElementById('mensajes-batalla');
+    mensajeBatalla.innerHTML = '';
+    mensajeBatalla.className = 'text-mensajes';
+
+    const containerMensajes = document.getElementById('container-mensajes');
+    containerMensajes.style.display = 'flex';
+    
     mostrarMensaje("Juego reiniciado. ¡Empieza de nuevo!");
     botonReinicio.style.display = 'none';
+
+    // Ocultar mensaje final al reiniciar
+    const containerResultado = document.getElementById('container-resultado');
+    containerResultado.style.display = 'none';
 });
 
-// Inicia el juego
 iniciarJuego();
