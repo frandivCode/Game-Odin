@@ -84,7 +84,7 @@ html {
 }
 
 .tituloPrincipal {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     font-size: 40px;
     font-family: "Press Start 2P", system-ui;
     text-align: center;
@@ -120,8 +120,7 @@ html {
 
 .container-flecha {
     display: flex;
-    align-items: center;
-    margin-top: 5rem;
+    align-items: end;
     position: relative;
     height: 100px;
     width: 100%;
@@ -129,7 +128,7 @@ html {
 
 .container-flecha h2 {
     text-align: center;
-    font-size: 20px;
+    font-size: 18px;
     font-family: "Press Start 2P", system-ui;
     color: #ffffff;
     animation: jump 1s infinite;
@@ -144,7 +143,7 @@ html {
     border-right: 15px solid transparent;
     border-top: 30px solid #35cf20;
     position: absolute;
-    bottom: -20px;
+    bottom: -60px;
     left: 50%;
     transform: translateX(-50%);
     animation: jump 1s infinite;
@@ -163,12 +162,12 @@ html {
 }
 
 #container-mensajes {
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: end;
     min-height: 200px;
     width: 100%;
-    margin-top: 3rem;
+    margin-bottom: 1.5rem;
 }
 
 #mensajes-batalla {
@@ -186,30 +185,59 @@ html {
     color: red;
 }
 
-#container-vidas {
+.info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.info-container {
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.info-container .img-icono {
+    width: 40px;
+    height: 40px;
+    margin: 0;
+}
+
+.info h3 {
+    font-size: 18px;
+    letter-spacing: 1.5px;
+}
+
+.info img {
+    margin: 0 10px;
+    width: 30px;
+    height: 25px;
+}
+
+#container-vidas {
+    display: flex;
+    align-items: start;
+    justify-content: space-around;
     width: 100%;
-    color: #ffffff;
-    font-size: 20px;
     font-family: "Press Start 2P", system-ui;
-    margin-top: 20px;
+    color: #ffffff;
 }
 
 #vidas-computer,
 #vidas-player {
+    font-size: 15px;
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    border: 1px solid red;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 #title-vidas {
-    font-size: 18px;
+    font-size: 20px;
 }
 
 #container-resultado {
@@ -228,17 +256,11 @@ html {
     color: gold;
 }
 
-.mensaje-perdedor {
-    color: red;
-}
-
-.animated {
-    animation-duration: 0.5s;
-    animation-fill-mode: both;
-}
-
 .bounce {
     animation-name: bounce;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
 }
 
 @keyframes bounce {
@@ -260,20 +282,40 @@ html {
     }
 }
 
+.mensaje-perdedor {
+    color: rgb(255, 255, 255);
+}
+
 .anaglyph {
-    text-shadow: 4px 2px 2px red, 4px -2px 2px cyan;
+    animation: blink 1.5s step-start infinite;
+    text-shadow: 4px 3px 1px red, -4px -3px 1px cyan;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+.containerRondas {
+    display: none;
+    padding: 1rem;
+    color: #EEEEEE;
+    font-size: 17px;
+    font-family: "Press Start 2P", system-ui;
+    text-align: center;
 }
 
 .contenedorPersonajes {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 3rem;
+    margin-block-end: 2rem;
 }
 
 .contenedorBotones {
-    margin-top: 3rem;
     display: none;
+    margin-bottom: 2rem;
 }
 
 .attacksMagnooki {
@@ -301,17 +343,16 @@ html {
     background-color: #1f1e1e;
     color: #EEEEEE;
     font-size: 10px;
-    padding: 5px;
     text-transform: uppercase;
     transition: all 0.5s ease;
     cursor: pointer;
     border: 0;
     border-radius: 3px;
     font-family: "Press Start 2P", system-ui;
-    margin: 10px 20px;
     text-align: center;
     letter-spacing: .6px;
     line-break: strict;
+    margin: 15px;
 }
 
 .btn-choice:hover {

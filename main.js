@@ -68,15 +68,29 @@ function mostrarMensajeBatalla(msjBatalla, clase = '') {
     mensajeBatalla.className = 'text-mensajes ' + clase;
 }
 
-// Función para mostrar las vidas del jugador y la computadora
 function mostrarVidas() {
-    const vidasContainer = document.getElementById('container-vidas');
-    vidasContainer.style.display = 'flex';
-
     const vidasComputer = document.getElementById('vidas-computer');
-    vidasComputer.innerHTML = vidasPc;
     const vidasPlayer = document.getElementById('vidas-player');
-    vidasPlayer.innerHTML = vidasJugador;
+
+    vidasComputer.innerHTML = '';
+    vidasPlayer.innerHTML = '';
+
+    // Añade img jugador 
+    for (let i = 0; i < vidasJugador; i++) {
+        const img = document.createElement('img');
+        img.src = 'img/heart-pixel.png';
+        img.alt = 'corazon pixelado';
+        img.className = 'img-corazon';
+        vidasPlayer.appendChild(img);
+    }
+    // Añade img pc
+    for (let i = 0; i < vidasPc; i++) {
+        const img = document.createElement('img');
+        img.src = 'img/heart-pixel.png';
+        img.alt = 'corazon pixelado';
+        img.className = 'img-corazon';
+        vidasComputer.appendChild(img);
+    }
 }
 
 // Función para jugar una ronda
@@ -92,14 +106,11 @@ function jugarRonda(opcionJugador, opcionComputadora) {
         mostrarMensajeBatalla("Has <span class=\"ganado\">ganado</span> esta ronda!");
         vidasPc--;
     } else {
-        if (vidasJugador > 1) {
-            mostrarMensajeBatalla("Has <span class=\"perdido\">perdido</span> esta ronda.");
-        }
+        mostrarMensajeBatalla("Has <span class=\"perdido\">perdido</span> esta ronda.");
         vidasJugador--;
     }
     mostrarVidas();
 
-    // Verifica si el juego ha terminado después de cada ronda
     if (vidasJugador === 0 || vidasPc === 0) {
         mostrarResultadoFinal();
     }
@@ -113,13 +124,13 @@ function mostrarResultadoFinal() {
     if (vidasJugador === 0 || vidasPc === 0) {
         if (vidasJugador > vidasPc) {
             mensajeFinal.innerHTML = 'You Win!';
-            mensajeFinal.className = 'mensaje-ganador';
+            mensajeFinal.className = 'mensaje-ganador bounce';
             playSoundVictory();
         } else if (vidasJugador === vidasPc) {
             mensajeFinal.innerHTML = 'Empate';
         } else {
             mensajeFinal.innerHTML = 'Game Over';
-            mensajeFinal.className = 'mensaje-perdedor';
+            mensajeFinal.className = 'mensaje-perdedor anaglyph';
             playSoundDefeat();
         }
 
@@ -130,22 +141,33 @@ function mostrarResultadoFinal() {
         document.getElementById('container-mensajes').style.display = 'none';
         document.querySelector('.contenedorPersonajes').style.display = 'none';
         document.querySelector('.contenedorBotones').style.display = 'none';
+        document.getElementById('container-rondas').style.display = 'none';
 
         containerResultado.style.display = 'block';
     } else {
-        // Si el juego no ha terminado, ocultamos el mensaje final
         containerResultado.style.display = 'none';
     }
 }
 
+function mostrarRondas() {
+    const verRondas = document.getElementById('container-rondas');
+    verRondas.innerHTML = `<h3>Ronda ${ronda}</h3>`;
+    document.getElementById('container-rondas').style.display = 'block';
+}
+
+function reiniciarRondas() {
+    const verRondas = document.getElementById('container-rondas');
+    verRondas.innerHTML = '';
+    document.getElementById('container-rondas').style.display = 'none';
+}
+
 function jugarJuego(opcionJugador) {
-    mostrarMensaje(`Round ${ronda}\n¡Fight! 🤜🤛`);
+    mostrarRondas();
     const computerSelection = getComputerChoice();
     jugarRonda(opcionJugador, computerSelection);
     ronda++;
 }
 
-// Función para iniciar el juego y configurar el botón de inicio
 function iniciarJuego() {
     document.getElementById('container-vidas').style.display = 'none';
     setTimeout(function () {
@@ -154,6 +176,8 @@ function iniciarJuego() {
             document.getElementById('juego').style.display = 'block';
             playMusicBattle();
             escribirTexto("Elemental Dominance", document.getElementById('tituloPrincipal'));
+
+            mostrarVidas();
         });
     }, 1300);
 }
@@ -208,7 +232,8 @@ btnsPersonajes.forEach(btn => {
         document.querySelector('.contenedorPersonajes').style.display = 'none';
         document.querySelector('.contenedorBotones').style.display = 'block';
         document.getElementById('eleccion-personajes').style.display = 'none';
-
+        document.getElementById('container-mensajes').style.display = 'flex';
+        document.getElementById('container-vidas').style.display = 'flex';
         document.querySelectorAll('.contenedorBotones .btn-choice').forEach(ataqueBtn => {
             ataqueBtn.style.display = 'none';
         });
@@ -240,9 +265,10 @@ document.getElementById('reiniciar').addEventListener('click', () => {
     personajePC = null;
 
     document.getElementById('container-vidas').style.display = 'none';
+    document.getElementById('eleccion-personajes').style.display = 'block';
+    document.getElementById('container-rondas').style.display = 'block';
     document.querySelector('.contenedorPersonajes').style.display = 'block';
     document.querySelector('.contenedorBotones').style.display = 'none';
-    document.getElementById('eleccion-personajes').style.display = 'block';
 
     const mensajeBatalla = document.getElementById('mensajes-batalla');
     mensajeBatalla.innerHTML = '';
@@ -250,13 +276,14 @@ document.getElementById('reiniciar').addEventListener('click', () => {
 
     const containerMensajes = document.getElementById('container-mensajes');
     containerMensajes.style.display = 'flex';
-    
-    mostrarMensaje("Juego reiniciado. ¡Empieza de nuevo!");
+
     botonReinicio.style.display = 'none';
 
-    // Ocultar mensaje final al reiniciar
     const containerResultado = document.getElementById('container-resultado');
     containerResultado.style.display = 'none';
+
+    reiniciarRondas();
+    mostrarVidas();
 });
 
 iniciarJuego();
