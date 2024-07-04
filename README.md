@@ -20,7 +20,7 @@ En **Elemental Dominance**, la mecánica del juego es sencilla pero estratégica
 
 **Selección de Monstruos:**
 
-- Al inicio de cada batalla, los jugadores eligen un monstruo de su colección para luchar. Cada monstruo tiene habilidades propias basadas en uno de los cuatro elementos: fuego, agua, planta y electricidad.
+- Al inicio de cada batalla, los jugadores eligen un monstruo de su colección para luchar. Cada monstruo tiene habilidades propias basadas en uno de los cuatro elementos: fuego, agua, planta y viento.
 
 - Las habilidades tienen ventajas y desventajas contra otros tipos de monstruos, creando una dinámica de estrategia donde el conocimiento de las fortalezas y debilidades elementales es crucial.
 
@@ -31,7 +31,7 @@ En **Elemental Dominance**, la mecánica del juego es sencilla pero estratégica
 - Tanto el jugador como el computador (CPU) cuentan con tres vidas ❤️❤️❤️.
 - Las vidas se pierden según el resultado de cada ronda de batalla. Si un monstruo es derrotado, el perdedor de la ronda pierde una vida.
 
-- El juego termina cuando el jugador o el CPU pierde todas sus vidas.
+- El juego termina cuando el jugador o el CPU pierden todas sus vidas.
 
 ------------
 
