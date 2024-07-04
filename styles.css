@@ -739,10 +739,10 @@ html {
     }
 
     #container-atck {
-        gap: 2rem;
-        max-width: 380px;
+        gap: 3rem;
         align-items: start;
-        margin-block-end: 2rem;
+        margin-block-end: 3.5rem;
+        padding: 0 5px;
     }
 
     #atck-computer {
