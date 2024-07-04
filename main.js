@@ -43,11 +43,12 @@ const reglasAtaques = {
 };
 
 function getComputerChoice() {
-    const ataques = [
-        "Bola de fuego", "Remolino de agua", "Enredaderas venenosas", "Rafaga de aire",
-        "Llamarada", "Chorro de agua", "Lluvia de espinas", "Tornado",
-        "Soplido infernal", "Marea poderosa", "Hojas cortantes", "Corte de viento"
-    ];
+    if (!personajePC) {
+        personajePC = getComputerCharacter();
+    }
+
+    const personaje = personajesElementales.find(p => p.personaje === personajePC);
+    const ataques = personaje.ataques;
     const randomIndex = Math.floor(Math.random() * ataques.length);
     return ataques[randomIndex];
 }
@@ -93,12 +94,25 @@ function mostrarVidas() {
     }
 }
 
+function mostrarAtaquesPlayer(ataqueJugador) {
+    const atckPlayer = document.getElementById('atck-player');
+    atckPlayer.innerHTML = `Atacaste con 
+    ${ataqueJugador}`;
+}
+
+function mostrarAtaquesComputer(ataqueComputadora) {
+    const atckComputer = document.getElementById('atck-computer');
+    atckComputer.innerHTML = `Atacó con \n${ataqueComputadora}`;
+}
+
 // Función para jugar una ronda
 function jugarRonda(opcionJugador, opcionComputadora) {
-    mostrarMensaje(`Elegiste ➡️ ${opcionJugador} \n el PC eligió ➡️ ${opcionComputadora}`);
-
+    document.getElementById('container-atck').style.display = 'flex';
     const tipoJugador = tiposHabilidades[opcionJugador];
     const tipoComputadora = tiposHabilidades[opcionComputadora];
+
+    mostrarAtaquesPlayer(opcionJugador);
+    mostrarAtaquesComputer(opcionComputadora);
 
     if (tipoJugador === tipoComputadora) {
         mostrarMensajeBatalla("¡Hay un empate!");
@@ -142,8 +156,11 @@ function mostrarResultadoFinal() {
         document.querySelector('.contenedorPersonajes').style.display = 'none';
         document.querySelector('.contenedorBotones').style.display = 'none';
         document.getElementById('container-rondas').style.display = 'none';
+        document.getElementById('tituloPrincipal').style.display = 'none';
+        document.getElementById('container-atck').style.display = 'none';
 
-        containerResultado.style.display = 'block';
+        ocultarFondoVersus();
+        containerResultado.style.display = 'flex';
     } else {
         containerResultado.style.display = 'none';
     }
@@ -170,13 +187,13 @@ function jugarJuego(opcionJugador) {
 
 function iniciarJuego() {
     document.getElementById('container-vidas').style.display = 'none';
+    document.getElementById('container-resultado').style.display = 'none';
+    document.querySelector('.contenedorBotones').style.display = 'none';
     setTimeout(function () {
         document.getElementById('startbutton').addEventListener('click', function () {
             document.getElementById('inicio').style.display = 'none';
             document.getElementById('juego').style.display = 'block';
-            playMusicBattle();
             escribirTexto("Elemental Dominance", document.getElementById('tituloPrincipal'));
-
             mostrarVidas();
         });
     }, 1300);
@@ -194,6 +211,23 @@ function escribirTexto(texto, elemento) {
         }
     }, 100);
 }
+
+// Boton para desactivar la música al inicio del juego
+const prenderButton = document.getElementById('prender-music');
+const apagarButton = document.getElementById('apagar-music');
+const audio = document.getElementById('musica-de-batalla');
+
+prenderButton.addEventListener('click', function () {
+    audio.play();
+    prenderButton.style.display = 'none';
+    apagarButton.style.display = 'block';
+});
+
+apagarButton.addEventListener('click', function () {
+    audio.pause();
+    prenderButton.style.display = 'block';
+    apagarButton.style.display = 'none';
+});
 
 // Audio de la batalla
 function playMusicBattle() {
@@ -220,24 +254,40 @@ function playSoundDefeat() {
     gameOver.play();
 }
 
-// Configura los botones de selección de personajes
-const btnsPersonajes = document.querySelectorAll('.btn-personaje');
+function mostrarFondoVersus() {
+    const pantallaJuego = document.getElementById('juego');
+    pantallaJuego.classList.add('fondo-versus');
+}
 
-btnsPersonajes.forEach(btn => {
+function ocultarFondoVersus() {
+    const pantallaJuego = document.getElementById('juego');
+    pantallaJuego.classList.remove('fondo-versus');
+}
+
+const imgPersonajes = document.querySelectorAll('.img-personaje');
+
+// Función para manejar la selección de personajes
+imgPersonajes.forEach(btn => {
     btn.addEventListener('click', () => {
         personajeJugador = btn.getAttribute('data-personaje');
         personajePC = getComputerCharacter();
-        mostrarMensaje(`Has elegido a ${personajeJugador}\nPC ha elegido a ${personajePC}`);
+        mostrarFondoVersus();
+        document.getElementById('img-personaje-jugador').src = `./img/${personajeJugador.toLowerCase()}.png`;
+        document.getElementById('img-personaje-computer').src = `./img/${personajePC.toLowerCase()}.png`;
+
+        mostrarRondas();
         mostrarVidas();
+        document.getElementById('tituloPrincipal').style.display = 'none';
         document.querySelector('.contenedorPersonajes').style.display = 'none';
-        document.querySelector('.contenedorBotones').style.display = 'block';
+        document.querySelector('.contenedorBotones').style.display = 'flex';
         document.getElementById('eleccion-personajes').style.display = 'none';
         document.getElementById('container-mensajes').style.display = 'flex';
         document.getElementById('container-vidas').style.display = 'flex';
-        document.querySelectorAll('.contenedorBotones .btn-choice').forEach(ataqueBtn => {
+        document.querySelectorAll('.contenedorBotones .img-choice').forEach(ataqueBtn => {
             ataqueBtn.style.display = 'none';
         });
 
+        // Mostrar solo los ataques del personaje seleccionado
         const ataquesJugador = personajesElementales.find(p => p.personaje === personajeJugador).ataques;
         ataquesJugador.forEach(ataque => {
             document.getElementById(ataque.toLowerCase().replace(/ /g, '-')).style.display = 'inline-block';
@@ -245,19 +295,42 @@ btnsPersonajes.forEach(btn => {
     });
 });
 
-const btnsAtaques = document.querySelectorAll('.contenedorBotones .btn-choice');
+const attacksContainers = document.querySelectorAll('.contenedorBotones > div');
 
-btnsAtaques.forEach(btn => {
-    btn.addEventListener('click', () => {
-        jugarJuego(btn.textContent);
+// Función para mostrar solo los ataques del personaje seleccionado
+function mostrarAtaques(personajeSeleccionado) {
+    attacksContainers.forEach(container => {
+        if (container.id === `attacks-${personajeSeleccionado.toLowerCase()}`) {
+            container.style.display = 'block';
+        } else {
+            container.style.display = 'none'; 
+        }
+    });
+}
+
+// Evento al seleccionar un personaje
+document.querySelectorAll('.img-personaje').forEach(personaje => {
+    personaje.addEventListener('click', function () {
+        const personajeSeleccionado = this.dataset.personaje;
+        mostrarAtaques(personajeSeleccionado);
     });
 });
+
+// Función para manejar la selección de ataques
+const imgAtaques = document.querySelectorAll('.img-choice');
+
+imgAtaques.forEach(img => {
+    img.addEventListener('click', () => {
+        const ataqueSeleccionado = img.getAttribute('alt');
+        jugarJuego(ataqueSeleccionado);
+    });
+});
+
 
 let botonReinicio = document.querySelector('.buttons');
 botonReinicio.style.display = 'none';
 
 document.getElementById('reiniciar').addEventListener('click', () => {
-    playMusicBattle();
     vidasJugador = 3;
     vidasPc = 3;
     ronda = 1;
@@ -265,22 +338,20 @@ document.getElementById('reiniciar').addEventListener('click', () => {
     personajePC = null;
 
     document.getElementById('container-vidas').style.display = 'none';
-    document.getElementById('eleccion-personajes').style.display = 'block';
+    document.getElementById('eleccion-personajes').style.display = 'flex';
     document.getElementById('container-rondas').style.display = 'block';
-    document.querySelector('.contenedorPersonajes').style.display = 'block';
+    document.querySelector('.contenedorPersonajes').style.display = 'flex';
     document.querySelector('.contenedorBotones').style.display = 'none';
+    document.getElementById('tituloPrincipal').style.display = 'flex';
+    document.getElementById('container-atck').style.display = 'none';
 
     const mensajeBatalla = document.getElementById('mensajes-batalla');
     mensajeBatalla.innerHTML = '';
     mensajeBatalla.className = 'text-mensajes';
 
-    const containerMensajes = document.getElementById('container-mensajes');
-    containerMensajes.style.display = 'flex';
-
     botonReinicio.style.display = 'none';
-
-    const containerResultado = document.getElementById('container-resultado');
-    containerResultado.style.display = 'none';
+    document.getElementById('container-mensajes').style.display = 'none';
+    document.getElementById('container-resultado').style.display = 'none';
 
     reiniciarRondas();
     mostrarVidas();

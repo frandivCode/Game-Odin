@@ -1,7 +1,8 @@
-/* Import Font 
-    font-family: "Press Start 2P", system-ui;
-*/
+/* "Press Start 2P", system-ui; */
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* font-family: "Poppins", sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 * {
     margin: 0;
@@ -25,15 +26,25 @@ html {
     height: 100%;
     background: rgba(29, 31, 32, 0.904) radial-gradient(rgba(255, 255, 255, 0.712) 10%, transparent 1%);
     background-size: 11px 11px;
+    position: relative;
 }
 
 .pantalla-juego {
     height: 100%;
     width: 100%;
-    background: url('./img/elements.jpg');
-    background-position: center right;
+    background-image: url('./img/elements.jpg');
+    background-position: 110%;
     background-repeat: no-repeat;
     background-size: contain;
+}
+
+.fondo-versus {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.527), rgba(0, 0, 0, 0.527)), url('./img/versus.jpg') !important;
+    height: 100%;
+    width: 100%;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 #startbutton {
@@ -83,6 +94,48 @@ html {
     height: 100vh;
 }
 
+#prender-music {
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    font-size: 18px;
+    border-radius: 50%;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    cursor: pointer;
+    outline: none;
+    border: 2px solid white;
+    transition: all .3s ease;
+    font-size: 20px;
+}
+
+#prender-music:hover {
+    background-color: rgb(38, 134, 25);
+    color: #EEEEEE;
+}
+
+#apagar-music {
+    text-align: center;
+    border: none;
+    outline: none;
+    border: 2px solid white;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    border-radius: 50%;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    transition: all .3s ease;
+}
+
+#apagar-music:hover {
+    background-color: rgb(71, 63, 63);
+    color: #EEEEEE;
+}
+
 .tituloPrincipal {
     margin-top: 1.5rem;
     font-size: 40px;
@@ -120,30 +173,21 @@ html {
 
 .container-flecha {
     display: flex;
-    align-items: end;
+    align-items: center;
+    justify-content: center;
     position: relative;
     height: 100px;
     width: 100%;
 }
 
 .container-flecha h2 {
+    width: 100%;
     text-align: center;
-    font-size: 18px;
+    font-size: 20px;
     font-family: "Press Start 2P", system-ui;
     color: #ffffff;
-    animation: jump 1s infinite;
-    left: 50%;
     position: absolute;
-}
-
-.arrow-down {
-    width: 0;
-    height: 0;
-    border-left: 15px solid transparent;
-    border-right: 15px solid transparent;
-    border-top: 30px solid #35cf20;
-    position: absolute;
-    bottom: -60px;
+    bottom: -100px;
     left: 50%;
     transform: translateX(-50%);
     animation: jump 1s infinite;
@@ -164,15 +208,14 @@ html {
 #container-mensajes {
     display: none;
     justify-content: center;
-    align-items: end;
+    align-items: center;
     min-height: 200px;
     width: 100%;
-    margin-bottom: 1.5rem;
 }
 
 #mensajes-batalla {
     color: #ffffff;
-    font-size: 15.5px;
+    font-size: 16.5px;
     font-family: "Press Start 2P", system-ui;
     text-align: center;
 }
@@ -189,7 +232,7 @@ html {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: 0.5rem;
 }
 
 .info-container {
@@ -206,12 +249,12 @@ html {
 }
 
 .info h3 {
-    font-size: 18px;
+    font-size: 14px;
     letter-spacing: 1.5px;
 }
 
-.info img {
-    margin: 0 10px;
+.img-corazon {
+    margin: 0 5px;
     width: 30px;
     height: 25px;
 }
@@ -219,10 +262,11 @@ html {
 #container-vidas {
     display: flex;
     align-items: start;
-    justify-content: space-around;
+    justify-content: space-evenly;
     width: 100%;
     font-family: "Press Start 2P", system-ui;
     color: #ffffff;
+    margin-top: 3rem;
 }
 
 #vidas-computer,
@@ -236,19 +280,51 @@ html {
     justify-content: center;
 }
 
+.imgPersonaje__Batalla {
+    width: 200px;
+    height: 200px;
+}
+
+.playerPersonaje {
+    transform: rotateY(180deg);
+}
+
 #title-vidas {
     font-size: 20px;
 }
 
+#container-atck {
+    display: none;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 100px;
+    font-family: "Press Start 2P", system-ui;
+    text-align: center;
+    gap: 5rem;
+}
+
+#atck-player {
+    color: #EEEEEE;
+    font-size: 14px;
+}
+
+#atck-computer {
+    color: #EEEEEE;
+    font-size: 14px;
+}
+
 #container-resultado {
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
+    height: 100vh;
+    width: 100%;
 }
 
 #mensaje-final {
     text-align: center;
-    font-size: 40px;
+    font-size: 60px;
     font-family: "Press Start 2P", system-ui;
 }
 
@@ -300,65 +376,104 @@ html {
 .containerRondas {
     display: none;
     padding: 1rem;
+    letter-spacing: 1.5px;
     color: #EEEEEE;
-    font-size: 17px;
+    font-size: 18px;
     font-family: "Press Start 2P", system-ui;
     text-align: center;
 }
 
 .contenedorPersonajes {
     display: flex;
-    justify-content: center;
+    width: 100%;
+    justify-content: space-evenly;
     align-items: center;
     margin-block-end: 2rem;
 }
 
-.contenedorBotones {
-    display: none;
-    margin-bottom: 2rem;
-}
-
-.attacksMagnooki {
+.imgPersonajes {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
-}
-
-.attacksVortapt {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.attacksGleamur {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.btn-choice {
-    width: 160px;
-    height: 60px;
-    line-height: 2;
-    background-color: #1f1e1e;
-    color: #EEEEEE;
-    font-size: 10px;
-    text-transform: uppercase;
-    transition: all 0.5s ease;
+    transition: filter 0.3s;
     cursor: pointer;
-    border: 0;
-    border-radius: 3px;
-    font-family: "Press Start 2P", system-ui;
-    text-align: center;
-    letter-spacing: .6px;
-    line-break: strict;
-    margin: 15px;
+    transition: transform .4s ease;
 }
 
-.btn-choice:hover {
-    background-color: #219644;
-    transition: all ease .5s;
+.imgPersonajes:hover {
+    filter: none;
+    transform: translateY(-5px) scale(1.05);
+}
+
+.imgPersonajes:not(:hover) {
+    filter: grayscale(100%);
+}
+
+.imgPersonajes p {
     color: #EEEEEE;
+    text-align: center;
+    font-size: 14px;
+    font-family: "Press Start 2P", system-ui;
+}
+
+.img-personaje {
+    width: 200px;
+    height: 200px;
+    transition: filter .2s;
+}
+
+.img-personaje:hover {
+    filter: drop-shadow(0 0 5px #ffffff);
+}
+
+.contenedorBotones {
+    width: 100%;
+    justify-content: center;
+}
+
+.imgAtaques {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+    gap: 5rem;
+}
+
+.imgChoiceContainer {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.imgChoiceContainer p {
+    color: #EEEEEE;
+    font-size: 15px;
+    font-family: "Poppins", sans-serif;
+}
+
+.imgAtaques img {
+    width: 60px;
+    height: 60px;
+}
+
+.img-choice {
+    background-color: #040829b6;
+    border-radius: 50%;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all .5s ease;
+    border: 1px solid rgba(58, 58, 58, 0.527);
+}
+
+.img-choice:hover {
+    background-color: #101013a1;
+    border: none;
+    box-shadow: 0px 1px 3px 3px rgba(145, 145, 145, 0.678);
 }
 
 .btn-restart {
@@ -581,13 +696,6 @@ html {
 
     .contenedorPersonajes {
         margin-top: 1rem;
-    }
-
-    .arrow-down {
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;
-        border-top: 15px solid #35cf20;
-        bottom: 15px;
     }
 
     .btn-restart {
