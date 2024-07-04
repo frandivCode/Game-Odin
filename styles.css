@@ -462,18 +462,18 @@ html {
 }
 
 .img-choice {
-    background-color: #040829b6;
+    background-color: rgb(11, 12, 77);
     border-radius: 50%;
     padding: 1rem;
     cursor: pointer;
     transition: all .5s ease;
-    border: 1px solid rgba(58, 58, 58, 0.527);
+    box-shadow: 0px 0px 10px 3px #353e80b6;
 }
 
 .img-choice:hover {
     background-color: #101013a1;
     border: none;
-    box-shadow: 0px 1px 3px 3px rgba(145, 145, 145, 0.678);
+    box-shadow: 0px 0px 10px 3px rgba(145, 145, 145, 0.678);
 }
 
 .btn-restart {
@@ -654,32 +654,21 @@ html {
 
 @media (min-width: 320px) and (max-width: 500px) {
 
-    .tituloPrincipal {
-        font-size: 20px;
-        line-height: 1.7;
-        margin-bottom: 5rem;
-    }
-
-    .pantalla-juego {
-        display: none;
-        background-position: center center;
-    }
-
-    .contenedorBotones {
-        flex-wrap: wrap;
-    }
-
-    .btn-choice {
-        width: 125px;
-        font-size: 7px;
-        height: 40px;
-        margin: 10px;
-    }
-
     #startbutton {
         font-size: 9px;
         padding: 0;
         left: 37%;
+    }
+
+    .pantalla-juego {
+        display: none;
+        background-position: 40%;
+    }
+
+    .tituloPrincipal {
+        font-size: 22px;
+        line-height: 1.7;
+        margin-bottom: 5rem;
     }
 
     .container-flecha {
@@ -690,12 +679,96 @@ html {
     }
 
     .container-flecha h2 {
-        font-size: 12px;
+        font-size: 13px;
         width: 100%;
+        max-width: 250px;
+        line-height: 2;
+        bottom: -120px;
+    }
+
+    .contenedorBotones {
+        flex-wrap: wrap;
     }
 
     .contenedorPersonajes {
         margin-top: 1rem;
+        justify-content: space-around;
+    }
+
+    .img-personaje {
+        width: 100px;
+        height: 100px;
+    }
+
+    .imgPersonajes p {
+        font-size: 9px;
+    }
+
+    #mensaje-final {
+        font-size: 40px;
+    }
+
+    .containerRondas {
+        font-size: 12px;
+        padding: 0;
+    }
+
+    .info h3 {
+        font-size: 12px;
+    }
+
+    .info-container .img-icono {
+        width: 30px;
+        height: 30px;
+    }
+
+    #container-vidas {
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 10px;
+    }
+
+    .img-corazon {
+        width: 25px;
+        height: 20px;
+    }
+
+    .imgPersonaje__Batalla {
+        width: 100px;
+        height: 100px;
+    }
+
+    #container-atck {
+        gap: 2rem;
+        max-width: 380px;
+        align-items: start;
+    }
+
+    #atck-computer {
+        font-size: 10px;
+        line-height: 2;
+    }
+
+    #atck-player {
+        font-size: 10px;
+        line-height: 2;
+    }
+
+    #container-mensajes {
+        min-height: 100px;
+    }
+
+    #mensajes-batalla {
+        font-size: 13px;
+    }
+
+    .imgAtaques {
+        flex-wrap: nowrap;
+        gap: 1rem;
+    }
+
+    .imgChoiceContainer p {
+        font-size: 12px;
     }
 
     .btn-restart {
