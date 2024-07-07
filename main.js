@@ -34,13 +34,26 @@ const tiposHabilidades = {
     "Corte de viento": "viento"
 };
 
-// Reglas de ataques: qué tipo de ataque es fuerte contra qué tipo
 const reglasAtaques = {
     "fuego": ["planta"],
     "agua": ["fuego"],
     "planta": ["viento"],
     "viento": ["agua"]
 };
+
+// Guardar datos en localStorage
+localStorage.setItem('personajesElementales', JSON.stringify(personajesElementales));
+localStorage.setItem('tiposHabilidades', JSON.stringify(tiposHabilidades));
+localStorage.setItem('reglasAtaques', JSON.stringify(reglasAtaques));
+
+// Recuperar datos desde localStorage
+const personajesElementalesGuardados = JSON.parse(localStorage.getItem('personajesElementales')) || personajesElementales;
+const tiposHabilidadesGuardados = JSON.parse(localStorage.getItem('tiposHabilidades')) || tiposHabilidades;
+const reglasAtaquesGuardados = JSON.parse(localStorage.getItem('reglasAtaques')) || reglasAtaques;
+
+console.log(personajesElementalesGuardados);
+console.log(tiposHabilidadesGuardados);
+console.log(reglasAtaquesGuardados);
 
 function getComputerChoice() {
     if (!personajePC) {
@@ -56,10 +69,6 @@ function getComputerChoice() {
 function getComputerCharacter() {
     const eleccionPC = Math.floor(Math.random() * personajesElementales.length);
     return personajesElementales[eleccionPC].personaje;
-}
-
-function mostrarMensaje(mensaje) {
-    alert(mensaje);
 }
 
 // Mensaje de la batalla 
@@ -96,18 +105,17 @@ function mostrarVidas() {
 
 function mostrarAtaquesPlayer(ataqueJugador) {
     const atckPlayer = document.getElementById('atck-player');
-    atckPlayer.innerHTML = `Atacaste con 
-    ${ataqueJugador}`;
+    atckPlayer.innerHTML = `Atacaste con ${ataqueJugador}`;
 }
 
 function mostrarAtaquesComputer(ataqueComputadora) {
     const atckComputer = document.getElementById('atck-computer');
-    atckComputer.innerHTML = `Atacó con \n${ataqueComputadora}`;
+    atckComputer.innerHTML = `Atacó con ${ataqueComputadora}`;
 }
 
-// Función para jugar una ronda
 function jugarRonda(opcionJugador, opcionComputadora) {
     document.getElementById('container-atck').style.display = 'flex';
+
     const tipoJugador = tiposHabilidades[opcionJugador];
     const tipoComputadora = tiposHabilidades[opcionComputadora];
 
@@ -319,13 +327,13 @@ document.querySelectorAll('.img-personaje').forEach(personaje => {
 // Función para manejar la selección de ataques
 const imgAtaques = document.querySelectorAll('.img-choice');
 
+// Elegir ataques al clickear las img por el atributo alt
 imgAtaques.forEach(img => {
     img.addEventListener('click', () => {
         const ataqueSeleccionado = img.getAttribute('alt');
         jugarJuego(ataqueSeleccionado);
     });
 });
-
 
 let botonReinicio = document.querySelector('.buttons');
 botonReinicio.style.display = 'none';
