@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.2/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="./img/elements.jpeg">
     <title>Elemental Dominance</title>
@@ -158,21 +160,27 @@
                 </div>
             </div>
 
-
             <!-- Botón reinicio de partida -->
             <div class="buttons">
                 <button class="btn-restart" id="reiniciar"><span></span>
                     <p data-text="Reiniciar" data-title="Jugar de nuevo"></p>
                 </button>
             </div>
+
         </section>
+        <!-- Audio de batalla -->
         <audio src="./audio/audio_batalla.mp3" id="musica-de-batalla"></audio>
+        <!-- Audio de derrota -->
         <audio src="./audio/game-over-sound.mp3" id="game-over"></audio>
+        <!-- Audio de victoria -->
         <audio src="./audio/winning-sound.mp3" id="sonido-de-victoria"></audio>
-        <script src="main.js"></script>
-        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     </div>
+    <!-- Alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.2/dist/sweetalert2.all.min.js"></script>
+    <!-- Iconos -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <!-- Javascript -->
+    <script src="main.js"></script>
 </body>
 
 </html>

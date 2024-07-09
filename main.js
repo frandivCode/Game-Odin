@@ -311,7 +311,7 @@ function mostrarAtaques(personajeSeleccionado) {
         if (container.id === `attacks-${personajeSeleccionado.toLowerCase()}`) {
             container.style.display = 'block';
         } else {
-            container.style.display = 'none'; 
+            container.style.display = 'none';
         }
     });
 }
@@ -339,6 +339,21 @@ let botonReinicio = document.querySelector('.buttons');
 botonReinicio.style.display = 'none';
 
 document.getElementById('reiniciar').addEventListener('click', () => {
+    Swal.fire({
+        title: 'Juego Reiniciado',
+        padding: '2rem',
+        timer: 2500,
+        showConfirmButton: false,
+        customClass: {
+            title: 'tituloAlert',
+        },
+        showClass: {
+            popup: 'animate__animated animate__backInDown'
+        },
+        hideClass: {
+            popup: 'animate__animated animate__backOutUp'
+        }
+    });
     vidasJugador = 3;
     vidasPc = 3;
     ronda = 1;
