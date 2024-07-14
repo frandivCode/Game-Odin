@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.2/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="./img/elements.jpeg">
     <title>Elemental Dominance</title>
 </head>
 
@@ -37,7 +36,7 @@
                     </div>
                     <div id="vidas-player"></div>
                     <img id="img-personaje-jugador" src="" alt="imagen personaje jugador"
-                        class="imgPersonaje__Batalla playerPersonaje">
+                        class="imgPersonaje__Batalla player">
                 </div>
 
                 <!-- Rondas -->
@@ -50,7 +49,7 @@
                     </div>
                     <div id="vidas-computer"></div>
                     <img id="img-personaje-computer" src="" alt="imagen personaje computador"
-                        class="imgPersonaje__Batalla">
+                        class="imgPersonaje__Batalla computer">
                 </div>
             </div>
 
@@ -74,6 +73,7 @@
             <div class="container-flecha" id="eleccion-personajes">
                 <h2>¡Elige un personaje para jugar!</h2>
             </div>
+
             <div class="contenedorPersonajes">
                 <div class="imgPersonajes">
                     <img src="./img/magnooki.png" alt="Personaje Magnooki" class="img-personaje"
@@ -95,20 +95,23 @@
                 <div class="attacksMagnooki" id="attacks-magnooki">
                     <div class="imgAtaques">
                         <div class="imgChoiceContainer">
-                            <img src="./img/fire.png" id="bola-de-fuego" class="img-choice" alt="Bola de fuego">
+                            <img src="./img/fire.png" id="bola-de-fuego"
+                                class="img-choice player-choice computer-choice" alt="Bola de fuego">
                             <p>Bola de fuego</p>
                         </div>
                         <div class="imgChoiceContainer">
-                            <img src="./img/water.png" id="remolino-de-agua" class="img-choice" alt="Remolino de agua">
+                            <img src="./img/water.png" id="remolino-de-agua"
+                                class="img-choice player-choice computer-choice" alt="Remolino de agua">
                             <p>Remolino de agua</p>
                         </div>
                         <div class="imgChoiceContainer">
-                            <img src="./img/plant.png" id="enredaderas-venenosas" class="img-choice"
-                                alt="Enredaderas venenosas">
+                            <img src="./img/plant.png" id="enredaderas-venenosas"
+                                class="img-choice player-choice computer-choice" alt="Enredaderas venenosas">
                             <p>Enredaderas venenosas</p>
                         </div>
                         <div class="imgChoiceContainer">
-                            <img src="./img/wind.png" id="rafaga-de-aire" class="img-choice" alt="Ráfaga de aire">
+                            <img src="./img/wind.png" id="rafaga-de-aire"
+                                class="img-choice player-choice computer-choice" alt="Ráfaga de aire">
                             <p>Ráfaga de aire</p>
                         </div>
                     </div>
@@ -118,20 +121,23 @@
                 <div class="attacksVortapt" id="attacks-vortapt">
                     <div class="imgAtaques">
                         <div class="imgChoiceContainer">
-                            <img src="./img/fire.png" id="llamarada" class="img-choice" alt="Llamarada">
+                            <img src="./img/fire.png" id="llamarada" class="img-choice player-choice computer-choice"
+                                alt="Llamarada">
                             <p>Llamarada</p>
                         </div>
                         <div class="imgChoiceContainer">
-                            <img src="./img/water.png" id="chorro-de-agua" class="img-choice" alt="Chorro de agua">
+                            <img src="./img/water.png" id="chorro-de-agua"
+                                class="img-choice player-choice computer-choice" alt="Chorro de agua">
                             <p>Chorro de agua</p>
                         </div>
                         <div class="imgChoiceContainer">
-                            <img src="./img/plant.png" id="lluvia-de-espinas" class="img-choice"
-                                alt="Lluvia de espinas">
+                            <img src="./img/plant.png" id="lluvia-de-espinas"
+                                class="img-choice player-choice computer-choice" alt="Lluvia de espinas">
                             <p>Lluvia de espinas</p>
                         </div>
                         <div class="imgChoiceContainer">
-                            <img src="./img/wind.png" id="tornado" class="img-choice" alt="Tornado">
+                            <img src="./img/wind.png" id="tornado" class="img-choice player-choice computer-choice"
+                                alt="Tornado">
                             <p>Tornado</p>
                         </div>
                     </div>
@@ -141,19 +147,23 @@
                 <div class="attacksGleamur" id="attacks-gleamur">
                     <div class="imgAtaques">
                         <div class="imgChoiceContainer">
-                            <img src="./img/fire.png" id="soplido-infernal" class="img-choice" alt="Soplido infernal">
+                            <img src="./img/fire.png" id="soplido-infernal"
+                                class="img-choice player-choice computer-choice" alt="Soplido infernal">
                             <p>Soplido infernal</p>
                         </div>
                         <div class="imgChoiceContainer">
-                            <img src="./img/water.png" id="marea-poderosa" class="img-choice" alt="Marea poderosa">
+                            <img src="./img/water.png" id="marea-poderosa"
+                                class="img-choice player-choice computer-choice" alt="Marea poderosa">
                             <p>Marea poderosa</p>
                         </div>
                         <div class="imgChoiceContainer">
-                            <img src="./img/plant.png" id="hojas-cortantes" class="img-choice" alt="Hojas cortantes">
+                            <img src="./img/plant.png" id="hojas-cortantes"
+                                class="img-choice player-choice computer-choice" alt="Hojas cortantes">
                             <p>Hojas cortantes</p>
                         </div>
                         <div class="imgChoiceContainer">
-                            <img src="./img/wind.png" id="corte-de-viento" class="img-choice" alt="Corte de viento">
+                            <img src="./img/wind.png" id="corte-de-viento"
+                                class="img-choice player-choice computer-choice" alt="Corte de viento">
                             <p>Corte de viento</p>
                         </div>
                     </div>
@@ -174,6 +184,8 @@
         <audio src="./audio/game-over-sound.mp3" id="game-over"></audio>
         <!-- Audio de victoria -->
         <audio src="./audio/winning-sound.mp3" id="sonido-de-victoria"></audio>
+        <!-- Audio de click -->
+        <audio src="./audio/sonido-click.mp3" id="sonido-de-click"></audio>
     </div>
     <!-- Alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.2/dist/sweetalert2.all.min.js"></script>

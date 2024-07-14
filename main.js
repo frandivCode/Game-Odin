@@ -51,10 +51,6 @@ const personajesElementalesGuardados = JSON.parse(localStorage.getItem('personaj
 const tiposHabilidadesGuardados = JSON.parse(localStorage.getItem('tiposHabilidades')) || tiposHabilidades;
 const reglasAtaquesGuardados = JSON.parse(localStorage.getItem('reglasAtaques')) || reglasAtaques;
 
-console.log(personajesElementalesGuardados);
-console.log(tiposHabilidadesGuardados);
-console.log(reglasAtaquesGuardados);
-
 function getComputerChoice() {
     if (!personajePC) {
         personajePC = getComputerCharacter();
@@ -86,19 +82,29 @@ function mostrarVidas() {
     vidasPlayer.innerHTML = '';
 
     // Añade img jugador 
-    for (let i = 0; i < vidasJugador; i++) {
+    for (let i = 0; i < 3; i++) {
         const img = document.createElement('img');
         img.src = 'img/heart-pixel.png';
         img.alt = 'corazon pixelado';
         img.className = 'img-corazon';
+
+        if (i >= vidasJugador) {
+            img.classList.add('opaque');
+        }
+
         vidasPlayer.appendChild(img);
     }
     // Añade img pc
-    for (let i = 0; i < vidasPc; i++) {
+    for (let i = 0; i < 3; i++) {
         const img = document.createElement('img');
         img.src = 'img/heart-pixel.png';
         img.alt = 'corazon pixelado';
         img.className = 'img-corazon';
+
+        if (i >= vidasPc) {
+            img.classList.add('opaque');
+        }
+
         vidasComputer.appendChild(img);
     }
 }
@@ -113,6 +119,29 @@ function mostrarAtaquesComputer(ataqueComputadora) {
     atckComputer.innerHTML = `Atacó con ${ataqueComputadora}`;
 }
 
+const playerImg = document.getElementById('img-personaje-jugador');
+const computerImg = document.getElementById('img-personaje-computer');
+
+function handleAnimationEnd(e) {
+    if (e.animationName === "hurt" || e.animationName === "tie") {
+        e.target.classList.remove("hurt", "tie");
+    }
+    if (e.animationName === "shoot") {
+        e.target.classList.remove("shoot");
+    }
+}
+
+playerImg.addEventListener("animationend", handleAnimationEnd);
+computerImg.addEventListener("animationend", handleAnimationEnd);
+
+function animatePlayerShoot() {
+    playerImg.classList.add('shoot');
+}
+
+function animateComputerShoot() {
+    computerImg.classList.add('shoot');
+}
+
 function jugarRonda(opcionJugador, opcionComputadora) {
     document.getElementById('container-atck').style.display = 'flex';
 
@@ -124,17 +153,38 @@ function jugarRonda(opcionJugador, opcionComputadora) {
 
     if (tipoJugador === tipoComputadora) {
         mostrarMensajeBatalla("¡Hay un empate!");
+        animatePlayerShoot();
+        animateComputerShoot();
+        setTimeout(() => {
+            mostrarVidas();
+            playerImg.classList.add('tie');
+            computerImg.classList.add('tie');
+            if (vidasJugador === 0 || vidasPc === 0) {
+                mostrarResultadoFinal();
+            }
+        }, 100);
     } else if (reglasAtaques[tipoJugador] && reglasAtaques[tipoJugador].includes(tipoComputadora)) {
         mostrarMensajeBatalla("Has <span class=\"ganado\">ganado</span> esta ronda!");
-        vidasPc--;
+        animateComputerShoot();
+        setTimeout(() => {
+            vidasPc--;
+            computerImg.classList.add('hurt');
+            mostrarVidas();
+            if (vidasPc === 0) {
+                mostrarResultadoFinal();
+            }
+        }, 100);
     } else {
         mostrarMensajeBatalla("Has <span class=\"perdido\">perdido</span> esta ronda.");
-        vidasJugador--;
-    }
-    mostrarVidas();
-
-    if (vidasJugador === 0 || vidasPc === 0) {
-        mostrarResultadoFinal();
+        animatePlayerShoot();
+        setTimeout(() => {
+            vidasJugador--;
+            playerImg.classList.add('hurt');
+            mostrarVidas();
+            if (vidasJugador === 0) {
+                mostrarResultadoFinal();
+            }
+        }, 100);
     }
 }
 
@@ -148,8 +198,6 @@ function mostrarResultadoFinal() {
             mensajeFinal.innerHTML = 'You Win!';
             mensajeFinal.className = 'mensaje-ganador bounce';
             playSoundVictory();
-        } else if (vidasJugador === vidasPc) {
-            mensajeFinal.innerHTML = 'Empate';
         } else {
             mensajeFinal.innerHTML = 'Game Over';
             mensajeFinal.className = 'mensaje-perdedor anaglyph';
@@ -207,7 +255,7 @@ function iniciarJuego() {
     }, 1300);
 }
 
-// Función para escribir texto
+// Funcion para escribir el titulo
 function escribirTexto(texto, elemento) {
     let i = 0;
     const interval = setInterval(() => {
@@ -217,7 +265,7 @@ function escribirTexto(texto, elemento) {
         } else {
             clearInterval(interval);
         }
-    }, 100);
+    }, 80);
 }
 
 // Boton para desactivar la música al inicio del juego
@@ -244,6 +292,17 @@ function playMusicBattle() {
     audio.play();
 }
 
+// Función para ajustar el volumen
+function ajustarVolumen(nuevoVolumen) {
+    if (nuevoVolumen < 0) {
+        nuevoVolumen = 0;
+    } else if (nuevoVolumen > 1) {
+        nuevoVolumen = 1;
+    }
+    audio.volume = nuevoVolumen;
+}
+ajustarVolumen(0.2);
+
 // Audio de victoria
 function playSoundVictory() {
     let audio = document.getElementById('musica-de-batalla');
@@ -260,6 +319,11 @@ function playSoundDefeat() {
     audio.currentTime = 0;
     let gameOver = document.getElementById('game-over');
     gameOver.play();
+}
+// Audio de click
+function playSoundClick() {
+    let soundClick = document.getElementById('sonido-de-click');
+    soundClick.play();
 }
 
 function mostrarFondoVersus() {
@@ -280,17 +344,18 @@ imgPersonajes.forEach(btn => {
         personajeJugador = btn.getAttribute('data-personaje');
         personajePC = getComputerCharacter();
         mostrarFondoVersus();
+        
         document.getElementById('img-personaje-jugador').src = `./img/${personajeJugador.toLowerCase()}.png`;
         document.getElementById('img-personaje-computer').src = `./img/${personajePC.toLowerCase()}.png`;
 
         mostrarRondas();
         mostrarVidas();
         document.getElementById('tituloPrincipal').style.display = 'none';
-        document.querySelector('.contenedorPersonajes').style.display = 'none';
-        document.querySelector('.contenedorBotones').style.display = 'flex';
         document.getElementById('eleccion-personajes').style.display = 'none';
         document.getElementById('container-mensajes').style.display = 'flex';
         document.getElementById('container-vidas').style.display = 'flex';
+        document.querySelector('.contenedorPersonajes').style.display = 'none';
+        document.querySelector('.contenedorBotones').style.display = 'flex';
         document.querySelectorAll('.contenedorBotones .img-choice').forEach(ataqueBtn => {
             ataqueBtn.style.display = 'none';
         });
@@ -324,12 +389,13 @@ document.querySelectorAll('.img-personaje').forEach(personaje => {
     });
 });
 
-// Función para manejar la selección de ataques
 const imgAtaques = document.querySelectorAll('.img-choice');
+const opacityImg = document.querySelectorAll('.opac');
 
 // Elegir ataques al clickear las img por el atributo alt
 imgAtaques.forEach(img => {
     img.addEventListener('click', () => {
+        playSoundClick();
         const ataqueSeleccionado = img.getAttribute('alt');
         jugarJuego(ataqueSeleccionado);
     });
@@ -341,8 +407,8 @@ botonReinicio.style.display = 'none';
 document.getElementById('reiniciar').addEventListener('click', () => {
     Swal.fire({
         title: 'Juego Reiniciado',
-        padding: '2rem',
-        timer: 2500,
+        padding: '1.5rem',
+        timer: 1500,
         showConfirmButton: false,
         customClass: {
             title: 'tituloAlert',
@@ -378,6 +444,10 @@ document.getElementById('reiniciar').addEventListener('click', () => {
 
     reiniciarRondas();
     mostrarVidas();
+
+    // Remover clases de animación
+    playerImg.classList.remove('shoot', 'hurt');
+    computerImg.classList.remove('shoot', 'hurt');
 });
 
 iniciarJuego();

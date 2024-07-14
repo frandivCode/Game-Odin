@@ -188,8 +188,6 @@ html {
     color: #ffffff;
     position: absolute;
     bottom: -100px;
-    left: 50%;
-    transform: translateX(-50%);
     animation: jump 1s infinite;
 }
 
@@ -197,11 +195,11 @@ html {
 
     0%,
     100% {
-        transform: translateX(-50%) translateY(0);
+        transform: translateY(0);
     }
 
     50% {
-        transform: translateX(-50%) translateY(-10px);
+        transform: translateY(-10px);
     }
 }
 
@@ -278,15 +276,6 @@ html {
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.imgPersonaje__Batalla {
-    width: 200px;
-    height: 200px;
-}
-
-.playerPersonaje {
-    transform: rotateY(180deg);
 }
 
 #title-vidas {
@@ -476,6 +465,100 @@ html {
     box-shadow: 0px 0px 10px 3px rgba(145, 145, 145, 0.678);
 }
 
+.opaque {
+    opacity: 0.3;
+}
+
+/* Animaciones para los personajes */
+.imgPersonaje__Batalla {
+    width: 200px;
+    height: 200px;
+}
+
+.player.tie {
+    animation-name: tie;
+    animation-duration: 1s;
+}
+
+.computer.tie {
+    animation-name: tie;
+    animation-duration: 1s;
+}
+
+.player.hurt {
+    animation-name: hurt;
+    animation-duration: 1s;
+}
+
+.computer.hurt {
+    animation-name: hurt;
+    animation-duration: 1s;
+}
+
+.player-choice.shoot {
+    animation-name: player-shoot;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+.computer-choice.shoot {
+    z-index: 2;
+    animation-name: computer-shoot;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes computer-shoot {
+    50% {
+        right: 40%;
+        opacity: 1;
+    }
+
+    100% {
+        right: 40%;
+        opacity: 0;
+    }
+}
+
+@keyframes player-shoot {
+    50% {
+        bottom: 25%;
+        opacity: 1;
+    }
+
+    100% {
+        bottom: 15%;
+        opacity: 0;
+    }
+}
+
+
+@keyframes tie {
+    50% {
+        transform: translateY(-0.5em);
+    }
+
+    70% {
+        transform: translateY(0.5em);
+    }
+
+    80% {
+        transform: scale(1.2);
+    }
+}
+
+@keyframes hurt {
+    50% {
+        transform: translateY(1em);
+        transform: rotate(10deg);
+    }
+    
+    80% {
+        transform: scale(1.2);
+        filter:sepia(70%);
+    }
+}
+
 .btn-restart {
     width: 180px;
     height: 50px;
@@ -650,6 +733,15 @@ html {
     outline: 0;
 }
 
+/* Clase de la alerta */
+.tituloAlert {
+    text-align: center;
+    font-size: 20px;
+    color: black;
+    font-family: "Press Start 2P", system-ui;
+    padding: 0;
+}
+
 /* ====== MEDIAQUERIES ====== */
 
 @media (min-width: 320px) and (max-width: 500px) {
@@ -779,13 +871,5 @@ html {
         font-size: 8px;
         margin-bottom: 5rem;
     }
-}
 
-/* Clase de la alerta */
-.tituloAlert{
-    text-align: center;
-    font-size: 20px;
-    color: black;
-    font-family: "Press Start 2P", system-ui;
-    padding: 0;
 }
