@@ -1,0 +1,59 @@
+{
+    "personajesElementales": [
+        {
+            "personaje": "Magnooki",
+            "ataques": [
+                "Bola de fuego",
+                "Remolino de agua",
+                "Enredaderas venenosas",
+                "Rafaga de aire"
+            ]
+        },
+        {
+            "personaje": "Vortapt",
+            "ataques": [
+                "Llamarada",
+                "Chorro de agua",
+                "Lluvia de espinas",
+                "Tornado"
+            ]
+        },
+        {
+            "personaje": "Gleamur",
+            "ataques": [
+                "Soplido infernal",
+                "Marea poderosa",
+                "Hojas cortantes",
+                "Corte de viento"
+            ]
+        }
+    ],
+    "tiposHabilidades": {
+        "Bola de fuego": "fuego",
+        "Llamarada": "fuego",
+        "Soplido infernal": "fuego",
+        "Remolino de agua": "agua",
+        "Chorro de agua": "agua",
+        "Marea poderosa": "agua",
+        "Enredaderas venenosas": "planta",
+        "Lluvia de espinas": "planta",
+        "Hojas cortantes": "planta",
+        "Rafaga de aire": "viento",
+        "Tornado": "viento",
+        "Corte de viento": "viento"
+    },
+    "reglasAtaques": {
+        "fuego": [
+            "planta"
+        ],
+        "agua": [
+            "fuego"
+        ],
+        "planta": [
+            "viento"
+        ],
+        "viento": [
+            "agua"
+        ]
+    }
+}

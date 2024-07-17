@@ -42,23 +42,38 @@ const reglasAtaques = {
 };
 
 // Guardar datos en localStorage
-function cargarDatosLocalStorage() {
+function cargarDatos() {
     return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            const personajesElementalesGuardados = JSON.parse(localStorage.getItem('personajesElementales')) || personajesElementales;
-            const tiposHabilidadesGuardados = JSON.parse(localStorage.getItem('tiposHabilidades')) || tiposHabilidades;
-            const reglasAtaquesGuardados = JSON.parse(localStorage.getItem('reglasAtaques')) || reglasAtaques;
+        // LocalStorage
+        const personajesElementalesGuardados = JSON.parse(localStorage.getItem('personajesElementales'));
+        const tiposHabilidadesGuardados = JSON.parse(localStorage.getItem('tiposHabilidades'));
+        const reglasAtaquesGuardados = JSON.parse(localStorage.getItem('reglasAtaques'));
 
-            if (personajesElementalesGuardados && tiposHabilidadesGuardados && reglasAtaquesGuardados) {
-                resolve({
-                    personajesElementales: personajesElementalesGuardados,
-                    tiposHabilidades: tiposHabilidadesGuardados,
-                    reglasAtaques: reglasAtaquesGuardados
+        if (personajesElementalesGuardados && tiposHabilidadesGuardados && reglasAtaquesGuardados) {
+            // Si los datos están en el localStorage, resolver la promesa con esos datos
+            resolve({
+                personajesElementales: personajesElementalesGuardados,
+                tiposHabilidades: tiposHabilidadesGuardados,
+                reglasAtaques: reglasAtaquesGuardados
+            });
+        } else {
+            // Si no están en el localStorage, obtener datos del archivo JSON
+            fetch('data.json')
+                .then(response => response.json())
+                .then(data => {
+                    // Guardar los datos obtenidos en el localStorage
+                    localStorage.setItem('personajesElementales', JSON.stringify(data.personajesElementales));
+                    localStorage.setItem('tiposHabilidades', JSON.stringify(data.tiposHabilidades));
+                    localStorage.setItem('reglasAtaques', JSON.stringify(data.reglasAtaques));
+
+                    // Resolver la promesa con los datos obtenidos del JSON
+                    resolve(data);
+                })
+                .catch(error => {
+                    console.error('Error al cargar los datos:', error);
+                    reject('Error al cargar los datos');
                 });
-            } else {
-                reject('Error al cargar los datos');
-            }
-        }, 1000);
+        }
     });
 }
 
@@ -263,7 +278,7 @@ function iniciarJuego() {
             document.getElementById('juego').style.display = 'block';
             escribirTexto("Elemental Dominance", document.getElementById('tituloPrincipal'));
 
-            cargarDatosLocalStorage().then(datos => {
+            cargarDatos().then(datos => {
                 personajesElementales = datos.personajesElementales;
                 tiposHabilidades = datos.tiposHabilidades;
                 reglasAtaques = datos.reglasAtaques;
@@ -273,9 +288,8 @@ function iniciarJuego() {
                 console.error(error);
             });
         });
-    }, 1300);
+    }, 1000);
 }
-
 
 // Funcion para escribir el titulo
 function escribirTexto(texto, elemento) {
