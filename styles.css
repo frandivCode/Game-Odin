@@ -549,13 +549,16 @@ html {
 
 @keyframes hurt {
     50% {
-        transform: translateY(1em);
-        transform: rotate(10deg);
+        transform: skewX(2deg) skewY(2deg);
     }
-    
+
+    70% {
+        transform: rotate(20deg);
+    }
+
     80% {
         transform: scale(1.2);
-        filter:sepia(70%);
+        filter: sepia(70%);
     }
 }
 

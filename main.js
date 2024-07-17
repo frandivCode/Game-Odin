@@ -42,14 +42,25 @@ const reglasAtaques = {
 };
 
 // Guardar datos en localStorage
-localStorage.setItem('personajesElementales', JSON.stringify(personajesElementales));
-localStorage.setItem('tiposHabilidades', JSON.stringify(tiposHabilidades));
-localStorage.setItem('reglasAtaques', JSON.stringify(reglasAtaques));
+function cargarDatosLocalStorage() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const personajesElementalesGuardados = JSON.parse(localStorage.getItem('personajesElementales')) || personajesElementales;
+            const tiposHabilidadesGuardados = JSON.parse(localStorage.getItem('tiposHabilidades')) || tiposHabilidades;
+            const reglasAtaquesGuardados = JSON.parse(localStorage.getItem('reglasAtaques')) || reglasAtaques;
 
-// Recuperar datos desde localStorage
-const personajesElementalesGuardados = JSON.parse(localStorage.getItem('personajesElementales')) || personajesElementales;
-const tiposHabilidadesGuardados = JSON.parse(localStorage.getItem('tiposHabilidades')) || tiposHabilidades;
-const reglasAtaquesGuardados = JSON.parse(localStorage.getItem('reglasAtaques')) || reglasAtaques;
+            if (personajesElementalesGuardados && tiposHabilidadesGuardados && reglasAtaquesGuardados) {
+                resolve({
+                    personajesElementales: personajesElementalesGuardados,
+                    tiposHabilidades: tiposHabilidadesGuardados,
+                    reglasAtaques: reglasAtaquesGuardados
+                });
+            } else {
+                reject('Error al cargar los datos');
+            }
+        }, 1000);
+    });
+}
 
 function getComputerChoice() {
     if (!personajePC) {
@@ -245,15 +256,26 @@ function iniciarJuego() {
     document.getElementById('container-vidas').style.display = 'none';
     document.getElementById('container-resultado').style.display = 'none';
     document.querySelector('.contenedorBotones').style.display = 'none';
+
     setTimeout(function () {
         document.getElementById('startbutton').addEventListener('click', function () {
             document.getElementById('inicio').style.display = 'none';
             document.getElementById('juego').style.display = 'block';
             escribirTexto("Elemental Dominance", document.getElementById('tituloPrincipal'));
-            mostrarVidas();
+
+            cargarDatosLocalStorage().then(datos => {
+                personajesElementales = datos.personajesElementales;
+                tiposHabilidades = datos.tiposHabilidades;
+                reglasAtaques = datos.reglasAtaques;
+
+                mostrarVidas();
+            }).catch(error => {
+                console.error(error);
+            });
         });
     }, 1300);
 }
+
 
 // Funcion para escribir el titulo
 function escribirTexto(texto, elemento) {
