@@ -137,12 +137,12 @@ function mostrarVidas() {
 
 function mostrarAtaquesPlayer(ataqueJugador) {
     const atckPlayer = document.getElementById('atck-player');
-    atckPlayer.innerHTML = `Atacaste con ${ataqueJugador}`;
+    atckPlayer.innerHTML = `Ataque ${ataqueJugador}`;
 }
 
 function mostrarAtaquesComputer(ataqueComputadora) {
     const atckComputer = document.getElementById('atck-computer');
-    atckComputer.innerHTML = `Atacó con ${ataqueComputadora}`;
+    atckComputer.innerHTML = `Ataque ${ataqueComputadora}`;
 }
 
 const playerImg = document.getElementById('img-personaje-jugador');
